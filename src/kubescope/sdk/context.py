@@ -13,7 +13,7 @@ in the app, so only install one from a source you trust.
 
 from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Protocol
+from typing import Any, NamedTuple, Protocol
 
 from kubescope.sdk.events import Events
 from kubescope.sdk.models import ClusterResource, PodInfo, Workload
@@ -23,6 +23,7 @@ API_VERSION = "0"  # unstable until it is 1
 PERMISSIONS = (
     "cluster.read",
     "cluster.write",
+    "aws.read",
     "subprocess",
     "ui.dock",
     "ui.tab",
@@ -105,6 +106,40 @@ class ClusterAccess(Protocol):
     def describe_kube(self) -> str:
         """The programs and the kubeconfig the app reads the cluster with, in
         words."""
+        ...
+
+
+class AwsScope(NamedTuple):
+    """Where an EKS context signs in to AWS."""
+
+    region: str
+    profile: str
+    account: str  # the account id, or the profile when the context has no ARN
+
+
+class AwsAccess(Protocol):
+    """What the AWS account of a cluster context lets an extension read."""
+
+    def uses_aws(self, context: str | None) -> bool:
+        """Whether this computer works with AWS: an account plugged in, a
+        profile that signs in with SSO, or `context` is an EKS cluster."""
+        ...
+
+    def scope(self, context: str) -> AwsScope:
+        """The region, profile and account of an EKS context; raises
+        `ClusterError` when it is not one."""
+        ...
+
+    def regions(self) -> tuple[str, ...]:
+        """The AWS regions."""
+        ...
+
+    def run(self, context: str, command: list[str], region: str = "") -> dict[str, Any]:
+        """The JSON answer of an AWS CLI command (`["rds",
+        "describe-db-instances"]`), with the profile or keys of the context, in
+        `region` or else the one of the context. Only commands that read are
+        run: a service and a verb the app lists, and no option that changes who
+        or where it asks. Raises `ClusterError` otherwise."""
         ...
 
 
@@ -292,6 +327,12 @@ class Context(Protocol):
     @property
     def cluster(self) -> ClusterAccess:
         """The read paths of the cluster; needs `cluster.read`."""
+        ...
+
+    @property
+    def aws(self) -> AwsAccess:
+        """The AWS account of the cluster contexts, to read; needs
+        `aws.read`."""
         ...
 
     @property

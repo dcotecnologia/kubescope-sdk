@@ -86,3 +86,14 @@ def test_a_page_is_a_permission_and_plain_data() -> None:
     assert "ui.page" in sdk.PERMISSIONS
     assert (page.section, page.group, page.title) == ("AWS", "RDS", "Instances")
     assert page.visible is None and page.subtitle == ""
+
+
+def test_the_aws_scope_names_where_a_context_signs_in() -> None:
+    scope = sdk.AwsScope("us-east-1", "work", "123456789012")
+
+    assert (scope.region, scope.profile, scope.account) == (
+        "us-east-1",
+        "work",
+        "123456789012",
+    )
+    assert "aws.read" in sdk.PERMISSIONS

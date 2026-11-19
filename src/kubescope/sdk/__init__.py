@@ -10,6 +10,8 @@ from kubescope.sdk.context import (
     API_VERSION,
     PERMISSIONS,
     App,
+    AwsAccess,
+    AwsScope,
     Cli,
     ClusterAccess,
     Context,
@@ -41,6 +43,8 @@ from kubescope.sdk.events import (
 __all__ = [
     "API_VERSION",
     "App",
+    "AwsAccess",
+    "AwsScope",
     "CONTEXT_CHANGED",
     "EVENTS",
     "LANGUAGE_CHANGED",
