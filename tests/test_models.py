@@ -3,8 +3,10 @@ import pytest
 from kubescope.sdk.models import (
     POD_SORT_COLUMNS,
     SORT_COLUMNS,
+    ClusterOverview,
     DetailRow,
     EventInfo,
+    NodeInfo,
     PodInfo,
     Workload,
     detail_link,
@@ -14,6 +16,7 @@ from kubescope.sdk.models import (
     format_bytes,
     format_cpu,
     format_memory,
+    match_rank,
     parse_cpu,
     parse_memory,
     pod_sort_key,
@@ -436,3 +439,50 @@ def test_a_table_that_is_not_a_list_of_names_has_no_links() -> None:
         for row in section.rows
         if row.label != "Namespace"
     )
+
+
+def node(name: str, **changes) -> NodeInfo:
+    values = dict(
+        name=name, ready=True, roles="worker", version="v1.30", age="3d",
+        cpu_allocatable=4.0, memory_allocatable=8.0, pods_allocatable=110,
+        cpu_requests=1.0, memory_requests=2.0, cpu_usage=0.5, memory_usage=3.0,
+    )  # fmt: skip
+    return NodeInfo(**{**values, **changes})
+
+
+def test_the_overview_adds_up_its_nodes() -> None:
+    overview = ClusterOverview(
+        nodes=(node("a"), node("b", ready=False, cpu_usage=None, memory_usage=None)),
+        metrics_available=True,
+    )
+
+    assert overview.nodes_ready == 1
+    assert overview.cpu_allocatable == 8.0 and overview.memory_allocatable == 16.0
+    assert overview.cpu_requests == 2.0 and overview.memory_requests == 4.0
+    assert overview.cpu_usage == 0.5 and overview.memory_usage == 3.0
+    assert overview.pods_capacity == 220
+
+
+def test_without_metrics_the_usage_is_unknown_not_zero() -> None:
+    overview = ClusterOverview(nodes=(node("a"),))
+
+    assert overview.cpu_usage is None and overview.memory_usage is None
+    assert ClusterOverview().nodes_ready == 0 and ClusterOverview().pods_capacity == 0
+
+
+@pytest.mark.parametrize(
+    ("query", "text", "rank"),
+    [
+        ("api", "API server", 0),  # starts with it, whatever the case
+        ("server api", "api server", 2),  # every word, in any order
+        ("server", "kube api server", 1),  # as a word
+        ("erv", "kube api server", 2),  # inside a word
+        ("web", "api server", None),  # a word that is not there
+        ("", "api server", None),  # nothing asked
+        ("   ", "api server", None),
+    ],
+)
+def test_a_search_ranks_what_starts_with_it_before_what_only_has_it(
+    query, text, rank
+) -> None:
+    assert match_rank(query, text) == rank
