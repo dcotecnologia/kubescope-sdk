@@ -17,8 +17,8 @@ format: ## Fix lint issues and format the code with ruff
 	$(UV) run ruff check --fix .
 	$(UV) run ruff format .
 
-lint: ## Check the style with ruff, without changing anything
-	$(UV) run ruff check .
+lint: ## Run every pre-commit hook on all files (ruff, pyright and the rest), as CI does
+	$(UV) run --with pre-commit pre-commit run --all-files --show-diff-on-failure
 
 typecheck: ## Check the types with pyright
 	$(UV) run pyright
