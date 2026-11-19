@@ -32,7 +32,9 @@ make test FILE=tests/test_x.py   # the test file of your change
 make lint typecheck
 ```
 
-Run one test file at a time while you work; the pipeline runs them all.
+Run one test file at a time while you work (`make test FILE=...` leaves the coverage out); `make test`
+runs them all with the coverage, which stays at **100%** (`--cov-fail-under=100`): cover the code with tests, and never
+lower the threshold or widen the omissions to get green.
 
 ## Releases
 

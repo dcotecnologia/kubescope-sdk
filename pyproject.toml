@@ -16,8 +16,9 @@ build-backend = "setuptools.build_meta"
 dev = [
     "pre-commit>=4.7.0",
     "pytest>=9.2.0",
+    "pytest-cov>=7.1.0",
     "pyright>=1.1.414",
-    "ruff>=0.17.5",
+    "ruff>=0.17.6",
 ]
 
 [tool.setuptools.packages.find]
@@ -28,7 +29,12 @@ namespaces = true
 [tool.pytest.ini_options]
 minversion = "9.0"
 testpaths = ["tests"]
-addopts = "--import-mode=importlib --log-level=WARN --strict-markers --tb=short"
+addopts = "--import-mode=importlib --cov=kubescope.sdk --log-level=WARN --strict-markers --tb=short --cov-report=term-missing --cov-report=xml --cov-fail-under=100 --cov-config=pyproject.toml"
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+precision = 2
 
 [tool.pyright]
 include = ["src", "tests"]

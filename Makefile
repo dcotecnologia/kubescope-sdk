@@ -26,8 +26,8 @@ typecheck: ## Check the types with pyright
 hooks: ## Run every pre-commit hook on all files, as CI does
 	$(UV) run --with pre-commit pre-commit run --all-files --show-diff-on-failure
 
-test: ## Run the tests; make test FILE=tests/test_x.py runs only that file
-	$(UV) run pytest -q $(FILE)
+test: ## Run the tests with coverage; make test FILE=tests/test_x.py runs only that file, without it
+	$(UV) run pytest -q $(if $(FILE),--no-cov $(FILE))
 
 clean: ## Remove the caches
 	rm -rf .pytest_cache .ruff_cache .pyright dist build *.egg-info

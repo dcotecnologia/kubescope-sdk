@@ -9,6 +9,7 @@ until then, any release may change the API.
 
 ### Added
 
+- The tests check the coverage, which stays at 100% as in KubeScope, and the pipeline publishes the badge
 - The guides of the SDK in `docs/`: getting started, the manifest, the context, the contributions, the permissions and testing
 - A pipeline that lints, type-checks and tests on every pull request, and a release pipeline for the tags `v*`
 
