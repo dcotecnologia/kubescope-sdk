@@ -38,3 +38,43 @@ def test_every_name_the_sdk_exports_exists() -> None:
         sdk.LANGUAGE_CHANGED,
         sdk.SHUTDOWN,
     }
+
+
+def _names(protocol: type) -> set[str]:
+    return {
+        name
+        for name in {*vars(protocol), *getattr(protocol, "__annotations__", {})}
+        if not name.startswith("_")
+    }
+
+
+def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
+    assert _names(sdk.ClusterAccess) >= {
+        "LOG_WINDOW_BYTES",
+        "KINDS",
+        "get_workloads",
+        "get_pods",
+        "get_pod_logs",
+        "get_pod_container_usage",
+        "get_usage",
+        "get_resources",
+        "get_resource_details",
+        "describe_kube",
+    }
+
+
+def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> None:
+    names = _names(sdk.Writes)
+
+    assert names == {
+        "scale_deployment",
+        "restart_deployment",
+        "evict_pod",
+        "delete_pod",
+        "delete_resource",
+        "replace_resource",
+    }
+
+
+def test_the_terminal_lends_only_what_it_can_do_without_a_window() -> None:
+    assert _names(sdk.Cli) == {"choose_context", "confirm"}

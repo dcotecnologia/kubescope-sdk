@@ -12,9 +12,11 @@ in the app, so only install one from a source you trust.
 """
 
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any, Protocol
 
 from kubescope.sdk.events import Events
+from kubescope.sdk.models import ClusterResource, PodInfo, Workload
 
 API_VERSION = "0"  # unstable until it is 1
 
@@ -39,11 +41,70 @@ class WriteModeOff(Exception):
 
 
 class ClusterAccess(Protocol):
-    """The read paths of the cluster; each is a function of
-    `kubescope.cluster`."""
+    """What an extension may read of a cluster, with the credentials and the
+    kubeconfig of the context it names. Each call may take a while, so it is
+    made off the UI thread; a failure raises `ClusterError`."""
 
-    def __getattr__(self, name: str) -> Callable[..., Any]:
-        """The read function called `name`."""
+    LOG_WINDOW_BYTES: int  # the most that is read of the window of a log
+    KINDS: tuple[str, ...]  # the kinds of resource that `get_resources` reads
+
+    def get_workloads(
+        self,
+        context: str,
+        namespace: str | None = None,
+        kinds: tuple[str, ...] = ...,
+    ) -> tuple[list[str], list[Workload]]:
+        """The namespaces and the replicated workloads (Deployments, ...)."""
+        ...
+
+    def get_pods(
+        self, context: str, namespace: str | None = None
+    ) -> tuple[list[str], list[PodInfo]]:
+        """The namespaces and the Pods."""
+        ...
+
+    def get_pod_logs(
+        self,
+        context: str,
+        namespace: str,
+        pod_name: str,
+        container: str,
+        tail_lines: int = 500,
+        since_time: str | None = None,
+        since_seconds: int = 0,
+        limit_bytes: int = 0,
+    ) -> str:
+        """The log of a container of a Pod."""
+        ...
+
+    def get_pod_container_usage(
+        self, context: str, namespace: str, pod_name: str
+    ) -> dict[str, tuple[float, float]] | None:
+        """The CPU and the memory in use of each container of a Pod, or None
+        where there are no metrics."""
+        ...
+
+    def get_usage(
+        self, context: str, namespace: str | None = None
+    ) -> dict[tuple[str, str, str], tuple[int, float | None, float | None]]:
+        """The usage of the workloads, by (kind, namespace, name)."""
+        ...
+
+    def get_resources(
+        self, context: str, namespace: str | None, kind: str
+    ) -> tuple[list[str], list[ClusterResource]]:
+        """The namespaces and the resources of a kind, as the lists show them."""
+        ...
+
+    def get_resource_details(
+        self, context: str, kind: str, namespace: str, name: str
+    ) -> dict[str, Any]:
+        """The document of one resource."""
+        ...
+
+    def describe_kube(self) -> str:
+        """The programs and the kubeconfig the app reads the cluster with, in
+        words."""
         ...
 
 
@@ -61,11 +122,43 @@ class Settings(Protocol):
 
 
 class Writes(Protocol):
-    """The changes to a cluster, only while the write mode is on."""
+    """The changes to a cluster. Every one raises `WriteModeOff` unless the
+    person turned on the write mode, so an extension asks the person before it
+    calls one; each is made off the UI thread."""
 
-    def run(self, function: Callable[..., Any], *arguments: Any) -> Any:
-        """Call one of the functions of the write mode, or raise
-        `WriteModeOff`."""
+    def scale_deployment(
+        self, context: str, namespace: str, name: str, replicas: int
+    ) -> None:
+        """Set the replicas of a Deployment."""
+        ...
+
+    def restart_deployment(self, context: str, namespace: str, name: str) -> None:
+        """Restart the Pods of a Deployment."""
+        ...
+
+    def evict_pod(self, context: str, namespace: str, name: str) -> None:
+        """Evict a Pod."""
+        ...
+
+    def delete_pod(self, context: str, namespace: str, name: str) -> None:
+        """Delete a Pod."""
+        ...
+
+    def delete_resource(
+        self, context: str, kind: str, namespace: str, name: str
+    ) -> None:
+        """Delete a resource."""
+        ...
+
+    def replace_resource(
+        self,
+        context: str,
+        kind: str,
+        namespace: str,
+        name: str,
+        document: dict[str, Any],
+    ) -> None:
+        """Replace a resource with a document."""
         ...
 
 
@@ -102,6 +195,11 @@ class Ui(Protocol):
         `section`."""
         ...
 
+    def themed(self, color: str, text: bool = False) -> str:
+        """A color of the design as the theme in use shows it; `text` is for the
+        color of a text on the background of the theme."""
+        ...
+
     def reserve_corner(self, owner: str, pixels: int) -> None:
         """Keep `pixels` of the corner of the window clear for `owner`; 0 gives
         it back."""
@@ -119,6 +217,32 @@ class App(Protocol):
     @property
     def language(self) -> str:
         """The language chosen in the Settings (`auto` follows the system)."""
+        ...
+
+    @property
+    def resolved_language(self) -> str:
+        """The code of the language the app shows: what `language` is, or the
+        one of the system when it is `auto`."""
+        ...
+
+    @property
+    def language_name(self) -> str:
+        """The name of that language in English, to tell an assistant which one
+        to answer in."""
+        ...
+
+
+class Cli(Protocol):
+    """What the terminal lends to a command of an extension, which runs with the
+    cluster already set up as the person configured it."""
+
+    def choose_context(self, name: str | None) -> str:
+        """The context to use: `name` if it is one of the kubeconfig, or the
+        one the person picks (asked in the terminal)."""
+        ...
+
+    def confirm(self, question: str) -> bool:
+        """Ask the person a question that is answered with yes or no."""
         ...
 
 
@@ -165,6 +289,18 @@ class Context(Protocol):
 
     def invoke(self, command: str, /, **arguments: Any) -> Any:
         """Do in the window what the person could do by hand."""
+        ...
+
+    @property
+    def cli(self) -> Cli | None:
+        """The terminal, when a command of the extension is what runs; None in
+        the window."""
+        ...
+
+    @property
+    def data_directory(self) -> Path:
+        """A folder that is the extension's own, for what it writes down (it
+        may not exist yet)."""
         ...
 
     @property
