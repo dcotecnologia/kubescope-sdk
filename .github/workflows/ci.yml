@@ -25,7 +25,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync --frozen
+        run: uv sync
 
       - uses: actions/cache@v6
         with:
@@ -48,7 +48,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync --frozen
+        run: uv sync
 
       - name: Run tests, which also check the coverage
         run: uv run pytest -q
