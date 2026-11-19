@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, NamedTuple, Protocol
 
 from kubescope.sdk.events import Events
-from kubescope.sdk.models import ClusterResource, PodInfo, Workload
+from kubescope.sdk.models import ClusterResource, PodInfo, SearchHit, Workload
 
 API_VERSION = "0"  # unstable until it is 1
 
@@ -106,6 +106,15 @@ class ClusterAccess(Protocol):
         self, context: str, kind: str, namespace: str, name: str
     ) -> dict[str, Any]:
         """The document of one resource."""
+        ...
+
+    def search_resources(self, context: str) -> list[SearchHit]:
+        """The name of the main resources of every namespace, sorted by name
+        (`SearchHit`: kind, namespace, name).
+
+        A kind the person may not list is left out instead of failing it
+        all.
+        """
         ...
 
     def describe_kube(self) -> str:

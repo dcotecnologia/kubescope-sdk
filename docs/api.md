@@ -57,6 +57,7 @@ Accept `**_` in a handler so that a payload added later does not break it.
 | `get_usage(context, namespace=None)` | Usage by `(kind, namespace, name)` |
 | `get_resources(context, namespace, kind)` | `(namespaces, resources)` of any kind |
 | `get_resource_details(context, kind, namespace, name)` | The document of one resource |
+| `search_resources(context)` | `SearchHit`s (kind, namespace, name) for the main resources of every namespace, sorted by name |
 | `describe_kube()` | The programs and kubeconfig the app reads the cluster with, in words |
 
 The models (`Workload`, `PodInfo`, `ClusterResource`, `NodeInfo`, `EventInfo`, ...) are frozen dataclasses in
@@ -129,6 +130,7 @@ the text that says why a command could not do what was asked.
 | `show_logs` | `namespace`, `pod`, `container=""` |
 | `refresh` | none |
 | `show_details` | `kind`, `namespace`, `name` |
+| `views` | none; returns `[(view, label)]`, the lists in the side menu, to open with `open_view` |
 
 An extension can offer its own commands with `ctx.register_command(name, command)`, named
 `<id>.<name>`, and other extensions call them with `invoke`.
