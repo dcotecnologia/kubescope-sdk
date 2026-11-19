@@ -8,6 +8,35 @@ from kubescope.sdk.timezone import to_zone
 
 MAX_REPLICA_SQUARES = 5
 MAX_REPLICAS = 10000  # the most a Deployment may be scaled to
+# the kinds of resource that the app reads, and that can be changed, by name
+RESOURCE_KINDS: tuple[str, ...] = (
+    "ConfigMap",
+    "CronJob",
+    "DaemonSet",
+    "Deployment",
+    "EndpointSlice",
+    "Endpoints",
+    "Event",
+    "HorizontalPodAutoscaler",
+    "Ingress",
+    "IngressClass",
+    "Job",
+    "Lease",
+    "LimitRange",
+    "MutatingWebhookConfiguration",
+    "NetworkPolicy",
+    "Pod",
+    "PodDisruptionBudget",
+    "PriorityClass",
+    "ReplicaSet",
+    "ReplicationController",
+    "ResourceQuota",
+    "RuntimeClass",
+    "Secret",
+    "Service",
+    "StatefulSet",
+    "ValidatingWebhookConfiguration",
+)
 
 
 @dataclass(frozen=True, slots=True)

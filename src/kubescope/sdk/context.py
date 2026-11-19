@@ -46,7 +46,6 @@ class ClusterAccess(Protocol):
     made off the UI thread; a failure raises `ClusterError`."""
 
     LOG_WINDOW_BYTES: int  # the most that is read of the window of a log
-    KINDS: tuple[str, ...]  # the kinds of resource that `get_resources` reads
 
     def get_workloads(
         self,

@@ -51,7 +51,6 @@ def _names(protocol: type) -> set[str]:
 def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
     assert _names(sdk.ClusterAccess) >= {
         "LOG_WINDOW_BYTES",
-        "KINDS",
         "get_workloads",
         "get_pods",
         "get_pod_logs",
