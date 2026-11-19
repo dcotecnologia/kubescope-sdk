@@ -1,7 +1,7 @@
-"""Where KubeScope keeps what it writes down. No Qt.
+"""Where KubeScope keeps what it writes down.
 
-`KUBESCOPE_CONFIG_DIR` overrides the folder, which is what the tests and a
-person who wants it elsewhere use.
+No Qt. `KUBESCOPE_CONFIG_DIR` overrides the folder, which is what the
+tests and a person who wants it elsewhere use.
 """
 
 import os

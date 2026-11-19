@@ -24,8 +24,11 @@ class DockContribution:
 @dataclass(frozen=True)
 class PageContribution:
     """A page of the window, with its entry in the side menu: `title` in the
-    menu `group` of the `section`. `factory` builds its widget the first time
-    it is opened; `visible` says whether the entry shows."""
+    menu `group` of the `section`.
+
+    `factory` builds its widget the first time it is opened; `visible`
+    says whether the entry shows.
+    """
 
     extension: str
     section: str
@@ -58,8 +61,11 @@ class SettingsSection:
 @dataclass(frozen=True)
 class ShortcutContribution:
     """A keyboard shortcut of the window that runs a function of the extension;
-    `default` is the key the person gets until they change it. With
-    `application` it works from every window of the app, not only the main one."""
+    `default` is the key the person gets until they change it.
+
+    With
+    `application` it works from every window of the app, not only the main one.
+    """
 
     extension: str
     action: str

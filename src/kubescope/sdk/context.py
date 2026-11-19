@@ -45,8 +45,11 @@ class WriteModeOff(Exception):
 
 class ClusterAccess(Protocol):
     """What an extension may read of a cluster, with the credentials and the
-    kubeconfig of the context it names. Each call may take a while, so it is
-    made off the UI thread; a failure raises `ClusterError`."""
+    kubeconfig of the context it names.
+
+    Each call may take a while, so it is made off the UI thread; a
+    failure raises `ClusterError`.
+    """
 
     LOG_WINDOW_BYTES: int  # the most that is read of the window of a log
 
@@ -95,7 +98,8 @@ class ClusterAccess(Protocol):
     def get_resources(
         self, context: str, namespace: str | None, kind: str
     ) -> tuple[list[str], list[ClusterResource]]:
-        """The namespaces and the resources of a kind, as the lists show them."""
+        """The namespaces and the resources of a kind, as the lists show
+        them."""
         ...
 
     def get_resource_details(
@@ -136,11 +140,14 @@ class AwsAccess(Protocol):
         ...
 
     def run(self, context: str, command: list[str], region: str = "") -> dict[str, Any]:
-        """The JSON answer of an AWS CLI command (`["rds",
-        "describe-db-instances"]`), with the profile or keys of the context, in
-        `region` or else the one of the context. Only commands that read are
+        """The JSON answer of an AWS CLI command (`["rds", "describe-db-
+        instances"]`), with the profile or keys of the context, in `region` or
+        else the one of the context.
+
+        Only commands that read are
         run: a service and a verb the app lists, and no option that changes who
-        or where it asks. Raises `ClusterError` otherwise."""
+        or where it asks. Raises `ClusterError` otherwise.
+        """
         ...
 
 
@@ -158,9 +165,12 @@ class Settings(Protocol):
 
 
 class Writes(Protocol):
-    """The changes to a cluster. Every one raises `WriteModeOff` unless the
-    person turned on the write mode, so an extension asks the person before it
-    calls one; each is made off the UI thread."""
+    """The changes to a cluster.
+
+    Every one raises `WriteModeOff` unless the person turned on the
+    write mode, so an extension asks the person before it calls one;
+    each is made off the UI thread.
+    """
 
     def scale_deployment(
         self, context: str, namespace: str, name: str, replicas: int
@@ -208,12 +218,15 @@ class Forwards(Protocol):
     def start_ssm(
         self, context: str, title: str, command: list[str], local: int, target: str
     ) -> bool:
-        """Run `aws ssm start-session` (`command`, with the document
-        AWS-StartPortForwardingSessionToRemoteHost) with the keys of `context`,
-        and show it on the Forwards page; `target` is what it reaches, as
-        host:port. Only in the write mode (raises `WriteModeOff`); anything
-        but that command is refused with `ClusterError`. False when `local`
-        is already in use."""
+        """Run `aws ssm start-session` (`command`, with the document AWS-
+        StartPortForwardingSessionToRemoteHost) with the keys of `context`, and
+        show it on the Forwards page; `target` is what it reaches, as
+        host:port.
+
+        Only in the write mode (raises `WriteModeOff`); anything but
+        that command is refused with `ClusterError`. False when `local`
+        is already in use.
+        """
         ...
 
 
@@ -265,8 +278,8 @@ class Ui(Protocol):
         ...
 
     def themed(self, color: str, text: bool = False) -> str:
-        """A color of the design as the theme in use shows it; `text` is for the
-        color of a text on the background of the theme."""
+        """A color of the design as the theme in use shows it; `text` is for
+        the color of a text on the background of the theme."""
         ...
 
     def reserve_corner(self, owner: str, pixels: int) -> None:
@@ -308,8 +321,8 @@ class App(Protocol):
 
 
 class Cli(Protocol):
-    """What the terminal lends to a command of an extension, which runs with the
-    cluster already set up as the person configured it."""
+    """What the terminal lends to a command of an extension, which runs with
+    the cluster already set up as the person configured it."""
 
     def choose_context(self, name: str | None) -> str:
         """The context to use: `name` if it is one of the kubeconfig, or the
@@ -427,7 +440,10 @@ class Context(Protocol):
         application: bool = False,
     ) -> None:
         """Add a keyboard shortcut the person can change in the Settings; needs
-        `ui.window`. With `application` it works from every window of the app."""
+        `ui.window`.
+
+        With `application` it works from every window of the app.
+        """
         ...
 
     def on_unload(self, callback: Callable[[], None]) -> None:
@@ -453,11 +469,15 @@ class Context(Protocol):
     ) -> None:
         """Add a page to the side menu: an entry `title`, in the menu `group`
         of the `section`, that opens the widget `factory` builds (when it is
-        first shown). `visible` says whether the entry shows now; it is asked
-        again whenever the window changes. If the widget has a `shown()`
-        method, it is called each time the page is opened. With `refresh`, the
-        header of the window shows its refresh button while the page is open,
-        like the other pages, and calls it. Needs `ui.page`."""
+        first shown).
+
+        `visible` says whether the entry shows now; it is asked again
+        whenever the window changes. If the widget has a `shown()`
+        method, it is called each time the page is opened. With
+        `refresh`, the header of the window shows its refresh button
+        while the page is open, like the other pages, and calls it.
+        Needs `ui.page`.
+        """
         ...
 
     def add_tab_kind(self, key: str, factory: Callable[..., Any]) -> None:

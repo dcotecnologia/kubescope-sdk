@@ -1,8 +1,8 @@
 """Hide the secrets that may appear in a line of text.
 
-Whatever an extension sends, shows or writes down that came from the cluster
-or from a program goes through this first: tokens, keys and passwords are
-replaced, so that a log or a chat can be read and shared.
+Whatever an extension sends, shows or writes down that came from the
+cluster or from a program goes through this first: tokens, keys and
+passwords are replaced, so that a log or a chat can be read and shared.
 """
 
 import re
