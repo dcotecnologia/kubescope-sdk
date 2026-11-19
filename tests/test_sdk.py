@@ -78,3 +78,11 @@ def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> Non
 
 def test_the_terminal_lends_only_what_it_can_do_without_a_window() -> None:
     assert _names(sdk.Cli) == {"choose_context", "confirm"}
+
+
+def test_a_page_is_a_permission_and_plain_data() -> None:
+    page = sdk.PageContribution("dco.a", "AWS", "RDS", "Instances", lambda: None)
+
+    assert "ui.page" in sdk.PERMISSIONS
+    assert (page.section, page.group, page.title) == ("AWS", "RDS", "Instances")
+    assert page.visible is None and page.subtitle == ""

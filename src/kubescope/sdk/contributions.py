@@ -22,6 +22,21 @@ class DockContribution:
 
 
 @dataclass(frozen=True)
+class PageContribution:
+    """A page of the window, with its entry in the side menu: `title` in the
+    menu `group` of the `section`. `factory` builds its widget the first time
+    it is opened; `visible` says whether the entry shows."""
+
+    extension: str
+    section: str
+    group: str
+    title: str
+    factory: Callable[..., Any]
+    subtitle: str = ""
+    visible: Callable[[], bool] | None = None
+
+
+@dataclass(frozen=True)
 class TabKind:
     """A kind of tab the window can open, besides its own."""
 

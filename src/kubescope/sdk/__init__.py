@@ -23,6 +23,7 @@ from kubescope.sdk.context import (
 from kubescope.sdk.contributions import (
     CliCommand,
     DockContribution,
+    PageContribution,
     SettingsSection,
     ShortcutContribution,
     TabKind,
@@ -53,6 +54,7 @@ __all__ = [
     "Context",
     "DockContribution",
     "Events",
+    "PageContribution",
     "PermissionDenied",
     "Settings",
     "SettingsPanel",
