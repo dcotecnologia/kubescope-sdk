@@ -7,7 +7,7 @@ fit is refused with a message that says which field is wrong. It is at most 16 K
 ```toml
 id = "kubescope.aws"
 name = "AWS"
-version = "1.0.1"
+version = "1.0.0"
 api = "0"
 entry = "kubescope.aws:activate"
 description = "Look at your AWS account from KubeScope."
