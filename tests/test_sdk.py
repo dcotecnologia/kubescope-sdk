@@ -36,6 +36,7 @@ def test_every_name_the_sdk_exports_exists() -> None:
         sdk.CONTEXT_CHANGED,
         sdk.THEME_CHANGED,
         sdk.LANGUAGE_CHANGED,
+        sdk.WRITE_MODE_CHANGED,
         sdk.SHUTDOWN,
     }
 

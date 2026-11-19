@@ -33,6 +33,7 @@ from kubescope.sdk.events import (
     LANGUAGE_CHANGED,
     SHUTDOWN,
     THEME_CHANGED,
+    WRITE_MODE_CHANGED,
     Events,
 )
 
@@ -59,6 +60,7 @@ __all__ = [
     "ShortcutContribution",
     "TabKind",
     "Ui",
+    "WRITE_MODE_CHANGED",
     "WriteModeOff",
     "Writes",
 ]

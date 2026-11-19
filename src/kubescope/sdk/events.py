@@ -10,9 +10,16 @@ from typing import Protocol
 CONTEXT_CHANGED = "context_changed"  # context: str | None
 THEME_CHANGED = "theme_changed"
 LANGUAGE_CHANGED = "language_changed"
+WRITE_MODE_CHANGED = "write_mode_changed"  # write_mode: bool
 SHUTDOWN = "shutdown"
 
-EVENTS = (CONTEXT_CHANGED, THEME_CHANGED, LANGUAGE_CHANGED, SHUTDOWN)
+EVENTS = (
+    CONTEXT_CHANGED,
+    THEME_CHANGED,
+    LANGUAGE_CHANGED,
+    WRITE_MODE_CHANGED,
+    SHUTDOWN,
+)
 
 
 class Events(Protocol):
