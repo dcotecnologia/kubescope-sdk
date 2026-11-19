@@ -4,7 +4,6 @@
 [![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdcotecnologia%2Fkubescope-sdk%2Fbadges%2Fcoverage.json)](https://github.com/dcotecnologia/kubescope-sdk/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python 3.15](https://img.shields.io/badge/python-3.15-blue.svg)
-![API 0 · unstable](https://img.shields.io/badge/API-0%20%C2%B7%20unstable-orange.svg)
 
 The contract between [KubeScope](https://github.com/dcotecnologia/kubescope), the Kubernetes desktop
 console, and the **extensions** written for it.
