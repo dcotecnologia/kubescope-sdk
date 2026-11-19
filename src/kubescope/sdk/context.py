@@ -24,6 +24,7 @@ PERMISSIONS = (
     "cluster.read",
     "cluster.write",
     "aws.read",
+    "forward",
     "subprocess",
     "ui.dock",
     "ui.tab",
@@ -197,6 +198,25 @@ class Writes(Protocol):
         ...
 
 
+class Forwards(Protocol):
+    """The port forwards of the app, listed on its Forwards page."""
+
+    def port_in_use(self, port: int) -> bool:
+        """Whether something on this computer already listens on `port`."""
+        ...
+
+    def start_ssm(
+        self, context: str, title: str, command: list[str], local: int, target: str
+    ) -> bool:
+        """Run `aws ssm start-session` (`command`, with the document
+        AWS-StartPortForwardingSessionToRemoteHost) with the keys of `context`,
+        and show it on the Forwards page; `target` is what it reaches, as
+        host:port. Only in the write mode (raises `WriteModeOff`); anything
+        but that command is refused with `ClusterError`. False when `local`
+        is already in use."""
+        ...
+
+
 class Ui(Protocol):
     """The window, for an extension that asked for `ui.window`; it is None when
     the app runs without one (a command of the terminal)."""
@@ -219,6 +239,20 @@ class Ui(Protocol):
     ) -> None:
         """Call `function` off the UI thread; the answer comes to
         `on_success`."""
+        ...
+
+    def pick_item(self, title: str, label: str, items: list[str]) -> tuple[str, bool]:
+        """Ask the person to pick one of `items`; the one picked and whether
+        they accepted."""
+        ...
+
+    def show_json(self, title: str, document: dict[str, Any]) -> None:
+        """Show `document` in a Details tab."""
+        ...
+
+    def open_log(self, title: str, name: str, read: Callable[[], str]) -> None:
+        """Show a text in a Logs tab, with a refresh button; `read` returns it
+        and runs off the UI thread each time it is asked."""
         ...
 
     def style_box(self, box: Any) -> None:
@@ -333,6 +367,11 @@ class Context(Protocol):
     def aws(self) -> AwsAccess:
         """The AWS account of the cluster contexts, to read; needs
         `aws.read`."""
+        ...
+
+    @property
+    def forwards(self) -> Forwards:
+        """The port forwards; needs `forward`."""
         ...
 
     @property
