@@ -7,6 +7,7 @@ from typing import Any
 from kubescope.sdk.timezone import to_zone
 
 MAX_REPLICA_SQUARES = 5
+MAX_REPLICAS = 10000  # the most a Deployment may be scaled to
 
 
 @dataclass(frozen=True, slots=True)
