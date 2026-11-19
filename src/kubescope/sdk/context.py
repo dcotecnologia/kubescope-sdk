@@ -262,10 +262,25 @@ class SettingsPanel(Protocol):
 class Context(Protocol):
     """What `activate(ctx)` receives."""
 
-    id: str
-    permissions: frozenset[str]
-    events: Events
-    settings: Settings
+    @property
+    def id(self) -> str:
+        """The id of the extension, as its manifest says."""
+        ...
+
+    @property
+    def permissions(self) -> frozenset[str]:
+        """What its manifest asked for."""
+        ...
+
+    @property
+    def events(self) -> Events:
+        """The events the app tells it about."""
+        ...
+
+    @property
+    def settings(self) -> Settings:
+        """Its own preferences."""
+        ...
 
     @property
     def cluster(self) -> ClusterAccess:
