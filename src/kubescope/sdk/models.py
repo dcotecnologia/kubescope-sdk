@@ -4,7 +4,7 @@ from dataclasses import dataclass, field, replace
 from datetime import datetime
 from typing import Any
 
-from kubescope_sdk.timezone import to_zone
+from kubescope.sdk.timezone import to_zone
 
 MAX_REPLICA_SQUARES = 5
 

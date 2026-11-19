@@ -1,6 +1,6 @@
 import pytest
 
-from kubescope_sdk.models import (
+from kubescope.sdk.models import (
     POD_SORT_COLUMNS,
     SORT_COLUMNS,
     DetailRow,
@@ -64,7 +64,7 @@ def test_format_age(seconds: int, expected: str) -> None:
 
 
 def test_parse_quantities() -> None:
-    from kubescope_sdk.models import format_bytes, format_cores, parse_cpu, parse_memory
+    from kubescope.sdk.models import format_bytes, format_cores, parse_cpu, parse_memory
 
     assert parse_cpu("250m") == 0.25
     assert parse_cpu("2") == 2.0
@@ -80,7 +80,7 @@ def test_parse_quantities() -> None:
 
 
 def test_age_seconds_inverts_format_age() -> None:
-    from kubescope_sdk.models import age_seconds
+    from kubescope.sdk.models import age_seconds
 
     assert age_seconds("0h0m0s") == 0
     assert age_seconds("5m0s") == 300  # the old shape still reads
@@ -97,7 +97,7 @@ def test_age_seconds_inverts_format_age() -> None:
 
 
 def test_workload_sort_keys_rank_status_worst_first_and_ready_by_fraction() -> None:
-    from kubescope_sdk.models import workload_sort_key
+    from kubescope.sdk.models import workload_sort_key
 
     healthy = Workload("b", "Deployment", "api", 3, 3, "1d")
     degraded = Workload("a", "Deployment", "web", 1, 4, "2d")
@@ -118,7 +118,7 @@ def test_workload_sort_keys_rank_status_worst_first_and_ready_by_fraction() -> N
 
 
 def test_pod_highlight_flags_only_problems() -> None:
-    from kubescope_sdk.models import PodInfo, pod_highlight
+    from kubescope.sdk.models import PodInfo, pod_highlight
 
     def pod(phase="Running", ready=1, restarts=0, age="2d") -> PodInfo:
         return PodInfo("d", "p", phase, ready, 1, age, ("a",), restarts=restarts)
@@ -224,7 +224,7 @@ def test_job_and_cron_job_states_replace_the_replica_status() -> None:
 
 
 def test_network_sort_key_orders_by_text_and_by_age() -> None:
-    from kubescope_sdk.models import ClusterResource, resource_sort_key
+    from kubescope.sdk.models import ClusterResource, resource_sort_key
 
     web = ClusterResource("ns", "Service", "web", ("ClusterIP", "10.0.0.1"), "2d")
     api = ClusterResource("ns", "Service", "api", ("NodePort", "10.0.0.2"), "5h")
@@ -235,7 +235,7 @@ def test_network_sort_key_orders_by_text_and_by_age() -> None:
 
 
 def test_safe_file_name_keeps_letters_digits_dots_and_dashes() -> None:
-    from kubescope_sdk.models import safe_file_name
+    from kubescope.sdk.models import safe_file_name
 
     assert safe_file_name("Deployment: api", ".json") == "Deployment-api.json"
     assert safe_file_name("api-1/app v2", ".log") == "api-1-app-v2.log"

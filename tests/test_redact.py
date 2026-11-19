@@ -1,6 +1,6 @@
 import pytest
 
-from kubescope_sdk.redact import redact
+from kubescope.sdk.redact import redact
 
 
 def _fake(*parts: str) -> str:

@@ -20,7 +20,9 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
+# `kubescope` is a namespace shared with the app: there is no __init__.py in it
 where = ["src"]
+namespaces = true
 
 [tool.pytest.ini_options]
 minversion = "9.0"

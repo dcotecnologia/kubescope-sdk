@@ -1,4 +1,4 @@
-from kubescope_sdk.errors import first_line
+from kubescope.sdk.errors import first_line
 
 
 def test_first_line_skips_blank_lines() -> None:

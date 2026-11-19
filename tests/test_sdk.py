@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 
-import kubescope_sdk as sdk
+import kubescope.sdk as sdk
 
 SDK = Path(sdk.__file__).parent
 
@@ -19,7 +19,11 @@ def test_the_sdk_imports_nothing_of_the_app() -> None:
             offenders += [
                 f"{path.name}: {module}"
                 for module in modules
-                if module.split(".")[0] in {"kubescope", "PySide6"}
+                if module.split(".")[0] == "PySide6"
+                or (
+                    module.split(".")[0] == "kubescope"
+                    and module.split(".")[:2] != ["kubescope", "sdk"]
+                )
             ]
 
     assert offenders == []

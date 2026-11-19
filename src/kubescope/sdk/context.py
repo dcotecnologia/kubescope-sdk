@@ -3,7 +3,7 @@
 The app hands the extension one `Context` when it starts. The classes
 here only describe it (`Protocol`s) together with the permissions and
 the errors that belong to the contract; the code behind them lives in
-`kubescope.extensions`. Nothing in `kubescope_sdk` imports the app, so
+`kubescope.extensions`. Nothing in `kubescope.sdk` imports the app, so
 this package can be published on its own.
 
 The permissions catch mistakes and tell the person what an extension
@@ -14,7 +14,7 @@ in the app, so only install one from a source you trust.
 from collections.abc import Callable
 from typing import Any, Protocol
 
-from kubescope_sdk.events import Events
+from kubescope.sdk.events import Events
 
 API_VERSION = "0"  # unstable until it is 1
 

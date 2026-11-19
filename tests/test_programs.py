@@ -1,6 +1,6 @@
 import shutil
 
-from kubescope_sdk import programs
+from kubescope.sdk import programs
 
 
 def test_on_windows_the_program_is_found_where_its_installers_put_it(

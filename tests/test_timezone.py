@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from kubescope_sdk import timezone
+from kubescope.sdk import timezone
 
 
 @pytest.fixture(autouse=True)

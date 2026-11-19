@@ -5,8 +5,8 @@ package imports nothing of the app either, so it can be published on its
 own. The API is unstable while `API_VERSION` is below 1.
 """
 
-from kubescope_sdk.commands import CommandError
-from kubescope_sdk.context import (
+from kubescope.sdk.commands import CommandError
+from kubescope.sdk.context import (
     API_VERSION,
     PERMISSIONS,
     App,
@@ -19,14 +19,14 @@ from kubescope_sdk.context import (
     WriteModeOff,
     Writes,
 )
-from kubescope_sdk.contributions import (
+from kubescope.sdk.contributions import (
     CliCommand,
     DockContribution,
     SettingsSection,
     ShortcutContribution,
     TabKind,
 )
-from kubescope_sdk.events import (
+from kubescope.sdk.events import (
     CONTEXT_CHANGED,
     EVENTS,
     LANGUAGE_CHANGED,

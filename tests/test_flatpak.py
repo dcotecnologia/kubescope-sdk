@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from kubescope_sdk import flatpak
+from kubescope.sdk import flatpak
 
 
 @pytest.fixture

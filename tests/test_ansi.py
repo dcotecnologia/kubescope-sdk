@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-from kubescope_sdk import ansi
+from kubescope.sdk import ansi
 
 
 class Terminal(io.StringIO):
