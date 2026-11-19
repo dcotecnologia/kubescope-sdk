@@ -225,6 +225,12 @@ class App(Protocol):
         ...
 
     @property
+    def language_names(self) -> tuple[str, ...]:
+        """The English names of every language the app has, English first, then
+        in alphabetical order."""
+        ...
+
+    @property
     def language_name(self) -> str:
         """The name of that language in English, to tell an assistant which one
         to answer in."""
