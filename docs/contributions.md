@@ -7,9 +7,9 @@ widgets, and it takes everything an extension added back when the extension is u
 
 ```python
 ctx.add_page(
-    section="AWS",             # the label that heads a part of the menu
-    group="RDS",               # a group that opens and closes
-    title="Instances",         # the entry that opens the page; also the title of the page
+    section="AWS",  # the label that heads a part of the menu
+    group="RDS",  # a group that opens and closes
+    title="Instances",  # the entry that opens the page; also the title of the page
     factory=lambda: MyPage(ctx),
     subtitle="Databases of the account",
     visible=lambda: ctx.aws.uses_aws(ctx.current_context),

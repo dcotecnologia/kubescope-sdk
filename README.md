@@ -19,7 +19,10 @@ from kubescope.sdk import Context
 
 def activate(ctx: Context) -> None:
     ctx.add_page(
-        "Cloud", "Databases", "Overview", lambda: build_widget(ctx),
+        "Cloud",
+        "Databases",
+        "Overview",
+        lambda: build_widget(ctx),
         visible=lambda: ctx.current_context is not None,
     )
 ```

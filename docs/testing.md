@@ -10,14 +10,21 @@ uses.
 ```python
 from kubescope.sdk import AwsScope
 
+
 class FakeAws:
     def __init__(self):
         self.answers = {}
         self.asked = []
 
-    def uses_aws(self, context): return True
-    def scope(self, context): return AwsScope("us-east-1", "work", "123456789012")
-    def regions(self): return ("us-east-1",)
+    def uses_aws(self, context):
+        return True
+
+    def scope(self, context):
+        return AwsScope("us-east-1", "work", "123456789012")
+
+    def regions(self):
+        return ("us-east-1",)
+
     def run(self, context, command, region=""):
         self.asked.append((context, command, region))
         return self.answers.get(tuple(command[:2]), {})
@@ -45,14 +52,25 @@ from pathlib import Path
 
 SRC = Path(__file__).resolve().parents[1] / "src"
 
+
 def test_it_imports_only_the_sdk_and_itself():
     found = []
     for path in SRC.rglob("*.py"):
         for node in ast.walk(ast.parse(path.read_text())):
-            names = ([a.name for a in node.names] if isinstance(node, ast.Import)
-                     else [node.module or ""] if isinstance(node, ast.ImportFrom) else [])
-            found += [n for n in names if n.split(".")[0] == "kubescope"
-                      and n.split(".")[:2] not in (["kubescope", "sdk"], ["kubescope", "mine"])]
+            names = (
+                [a.name for a in node.names]
+                if isinstance(node, ast.Import)
+                else [node.module or ""]
+                if isinstance(node, ast.ImportFrom)
+                else []
+            )
+            found += [
+                n
+                for n in names
+                if n.split(".")[0] == "kubescope"
+                and n.split(".")[:2]
+                not in (["kubescope", "sdk"], ["kubescope", "mine"])
+            ]
     assert found == []
 ```
 

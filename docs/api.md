@@ -6,6 +6,7 @@ is a `Protocol` of `kubescope.sdk`: the app implements it, and an extension neve
 ```python
 from kubescope.sdk import Context
 
+
 def activate(ctx: Context) -> None: ...
 ```
 

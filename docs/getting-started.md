@@ -50,8 +50,9 @@ from kubescope.sdk import Context
 def activate(ctx: Context) -> None:
     from kubescope.hello.page import HelloPage
 
-    ctx.add_page("Cloud", "Hello", "Greeting", lambda: HelloPage(ctx),
-                 subtitle="A first page")
+    ctx.add_page(
+        "Cloud", "Hello", "Greeting", lambda: HelloPage(ctx), subtitle="A first page"
+    )
 ```
 
 ```python
@@ -66,10 +67,12 @@ class HelloPage(QWidget):
         super().__init__()
         self.label = QLabel()
         QVBoxLayout(self).addWidget(self.label)
-        ctx.events.on(CONTEXT_CHANGED, lambda context=None, **_: self.show_context(context))
+        ctx.events.on(
+            CONTEXT_CHANGED, lambda context=None, **_: self.show_context(context)
+        )
         self.show_context(ctx.current_context)
 
-    def shown(self) -> None:           # optional: called each time the page is opened
+    def shown(self) -> None:  # optional: called each time the page is opened
         pass
 
     def show_context(self, context: str | None) -> None:
