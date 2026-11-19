@@ -20,6 +20,6 @@ time. What an extension can do is decided by the app and by the permissions in i
 
 ## Guarantees this project keeps
 
-- It has no dependencies and imports neither the app nor Qt, so it can be audited in a few minutes.
+- Its only dependency is PySide6, which an extension needs to draw anything; the SDK itself imports neither Qt nor the app, so it can be audited in a few minutes.
 - A test keeps it that way.
 - Every release is a tag built by the release pipeline from the changelog.

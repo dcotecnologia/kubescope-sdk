@@ -73,7 +73,7 @@ jobs:
       - name: Build the package
         run: uv build
 
-      - name: The package imports without the app or Qt
+      - name: The package imports without the app
         run: |
           uv venv --python 3.15 /tmp/check
           /tmp/check/bin/python -m ensurepip >/dev/null 2>&1 || true

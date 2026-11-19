@@ -90,7 +90,7 @@ process), call `ctx.on_unload(callback)`.
 name = "kubescope-hello"
 version = "0.1.0"
 requires-python = ">=3.15,<3.16"
-dependencies = ["kubescope-sdk>=0.1.0", "pyside6>=6.12.0"]
+dependencies = ["kubescope-sdk>=1.0.0"]  # it brings PySide6, which draws your widgets
 
 [tool.uv.sources]
 kubescope-sdk = { git = "https://github.com/dcotecnologia/kubescope-sdk", branch = "main" }

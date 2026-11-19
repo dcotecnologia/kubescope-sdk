@@ -16,7 +16,7 @@ cd kubescope-sdk
 make setup          # uv sync and the pre-commit hook
 ```
 
-The SDK has no dependencies and imports neither the app nor Qt; a test enforces it.
+The only dependency of the SDK is PySide6 (an extension needs it to draw anything); the SDK itself imports neither Qt nor the app, and a test enforces it.
 
 ## Workflow
 

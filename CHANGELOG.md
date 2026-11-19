@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- The SDK depends on PySide6 (`pyside6>=6.12.0`), which an extension needs to draw anything, so an extension lists only `kubescope-sdk`; the SDK itself still imports no Qt
+
 ## [1.0.0] - 2026-11-19
 
 ### Added

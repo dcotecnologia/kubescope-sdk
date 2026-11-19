@@ -84,14 +84,14 @@ An extension lists the SDK as a dependency:
 
 ```toml
 [project]
-dependencies = ["kubescope-sdk>=0.1.0"]
+dependencies = ["kubescope-sdk>=1.0.0"]
 
 [tool.uv.sources]
 kubescope-sdk = { git = "https://github.com/dcotecnologia/kubescope-sdk", branch = "main" }
 ```
 
-The SDK has no dependencies and imports neither the app nor Qt; a test enforces it. Qt is the extension's
-own dependency when it draws a widget.
+The only dependency of the SDK is PySide6, so an extension that draws a widget needs nothing else; the SDK
+itself imports neither Qt nor the app, and a test enforces it.
 
 ## Design rules
 
