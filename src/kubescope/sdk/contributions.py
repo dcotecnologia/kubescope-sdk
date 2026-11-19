@@ -34,6 +34,7 @@ class PageContribution:
     factory: Callable[..., Any]
     subtitle: str = ""
     visible: Callable[[], bool] | None = None
+    refresh: Callable[[], None] | None = None  # the refresh button of the header
 
 
 @dataclass(frozen=True)

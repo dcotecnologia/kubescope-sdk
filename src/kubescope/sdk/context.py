@@ -449,12 +449,15 @@ class Context(Protocol):
         factory: Callable[..., Any],
         subtitle: str = "",
         visible: Callable[[], bool] | None = None,
+        refresh: Callable[[], None] | None = None,
     ) -> None:
         """Add a page to the side menu: an entry `title`, in the menu `group`
         of the `section`, that opens the widget `factory` builds (when it is
         first shown). `visible` says whether the entry shows now; it is asked
         again whenever the window changes. If the widget has a `shown()`
-        method, it is called each time the page is opened. Needs `ui.page`."""
+        method, it is called each time the page is opened. With `refresh`, the
+        header of the window shows its refresh button while the page is open,
+        like the other pages, and calls it. Needs `ui.page`."""
         ...
 
     def add_tab_kind(self, key: str, factory: Callable[..., Any]) -> None:
