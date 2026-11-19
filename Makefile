@@ -19,7 +19,6 @@ format: ## Fix lint issues and format the code with ruff
 
 lint: ## Check the style with ruff, without changing anything
 	$(UV) run ruff check .
-	$(UV) run ruff format --check .
 
 typecheck: ## Check the types with pyright
 	$(UV) run pyright

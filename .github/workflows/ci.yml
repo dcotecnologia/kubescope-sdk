@@ -27,13 +27,14 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      - name: Ruff
-        run: |
-          uv run ruff check .
-          uv run ruff format --check .
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
 
-      - name: Pyright
-        run: uv run pyright
+      # ruff, ruff format, docformatter, pyright and the checks of the files
+      - name: Pre-commit
+        run: uv run --with pre-commit pre-commit run --all-files --show-diff-on-failure
 
   test:
     name: Test
