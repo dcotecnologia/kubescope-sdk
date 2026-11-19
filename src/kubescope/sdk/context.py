@@ -182,10 +182,15 @@ class Context(Protocol):
         ...
 
     def add_shortcut(
-        self, action: str, label: str, default: str, handler: Callable[[], None]
+        self,
+        action: str,
+        label: str,
+        default: str,
+        handler: Callable[[], None],
+        application: bool = False,
     ) -> None:
         """Add a keyboard shortcut the person can change in the Settings; needs
-        `ui.window`."""
+        `ui.window`. With `application` it works from every window of the app."""
         ...
 
     def on_unload(self, callback: Callable[[], None]) -> None:

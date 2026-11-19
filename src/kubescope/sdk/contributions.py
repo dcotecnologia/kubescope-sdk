@@ -42,13 +42,15 @@ class SettingsSection:
 @dataclass(frozen=True)
 class ShortcutContribution:
     """A keyboard shortcut of the window that runs a function of the extension;
-    `default` is the key the person gets until they change it."""
+    `default` is the key the person gets until they change it. With
+    `application` it works from every window of the app, not only the main one."""
 
     extension: str
     action: str
     label: str
     default: str
     handler: Callable[[], None]
+    application: bool = False
 
 
 @dataclass(frozen=True)
