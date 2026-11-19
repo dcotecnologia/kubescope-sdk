@@ -1,0 +1,64 @@
+name: Release
+
+# Push a tag like v1.0.0 to publish a GitHub release. The tag must be the version
+# of pyproject.toml, and the changelog must
+# have a section for it.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: The tag to build, such as v1.0.0 (nothing is published)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.15"
+
+      - name: The tag is the version of the package
+        id: version
+        run: |
+          tag="${{ github.event.inputs.tag || github.ref_name }}"
+          version="${tag#v}"
+          package=$(python3 -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          test "$version" = "$package" || { echo "The tag $tag is not the version $package"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Lint and test
+        run: |
+          uv run ruff check .
+          uv run pyright
+          uv run pytest -q
+
+      - name: Build the package
+        run: uv build
+
+      - name: What the changelog says about this version
+        id: changelog_reader
+        uses: dcotecnologia/keepmeachangelog-action@v1
+        with:
+          validation_depth: 10
+          version: ${{ steps.version.outputs.version }}
+          path: ./CHANGELOG.md
+
+      - uses: softprops/action-gh-release@v3
+        if: github.event_name == 'push'
+        with:
+          files: dist/*
+          body_path: ${{ steps.changelog_reader.outputs.changes_file }}
+          # v0.2.0-rc1 is a pre-release: GitHub does not make it the latest release
+          prerelease: ${{ contains(github.ref_name, '-') }}

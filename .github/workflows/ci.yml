@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.15"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Pyright
+        run: uv run pyright
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.15"
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Run tests
+        run: uv run pytest -q
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.15"
+
+      - name: Build the package
+        run: uv build
+
+      - name: The package imports without the app or Qt
+        run: |
+          uv venv --python 3.15 /tmp/check
+          /tmp/check/bin/python -m ensurepip >/dev/null 2>&1 || true
+          uv pip install --python /tmp/check/bin/python dist/*.whl
+          /tmp/check/bin/python -c "import kubescope.sdk as sdk; print(sdk.API_VERSION)"
