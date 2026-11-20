@@ -12,6 +12,10 @@ THEME_CHANGED = "theme_changed"
 LANGUAGE_CHANGED = "language_changed"
 WRITE_MODE_CHANGED = "write_mode_changed"  # write_mode: bool
 SHUTDOWN = "shutdown"
+# The app has something to tell the person: level: str ("error", "warning" or
+# "info"), title: str, message: str, key: str (the same key is the same
+# notice) and repeat: bool (whether the same key happening again counts)
+NOTIFICATION = "notification"
 
 EVENTS = (
     CONTEXT_CHANGED,
@@ -19,6 +23,7 @@ EVENTS = (
     LANGUAGE_CHANGED,
     WRITE_MODE_CHANGED,
     SHUTDOWN,
+    NOTIFICATION,
 )
 
 
