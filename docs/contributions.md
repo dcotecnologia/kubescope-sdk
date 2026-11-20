@@ -36,6 +36,19 @@ The factory builds a widget with two methods (`SettingsPanel`): `load()` shows t
 saved, and `save()` keeps what the person typed and returns `False`, after saying why, to stop the save. The
 section has its own button and card in the Settings.
 
+## Color themes · `ui.theme`
+
+```python
+ctx.add_theme(
+    "midnight", {"name": "Midnight", "base": "dark", "colors": {"page": "#0b0f14"}}
+)
+```
+
+The document is what a theme file of KubeScope holds: a `name`, a `base` (`light` or `dark`) and the `colors`
+(and optionally the `opacity`) it changes by role. The theme shows in **Settings → Theme** with the ones of the
+app, can be copied and edited by the person, and goes away with the extension. A document the app finds
+invalid is skipped and logged.
+
 ## A keyboard shortcut · `ui.window`
 
 ```python

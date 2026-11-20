@@ -30,6 +30,7 @@ from kubescope.sdk.contributions import (
     SettingsSection,
     ShortcutContribution,
     TabKind,
+    ThemeContribution,
 )
 from kubescope.sdk.events import (
     CONTEXT_CHANGED,
@@ -67,6 +68,7 @@ __all__ = [
     "SettingsSection",
     "ShortcutContribution",
     "TabKind",
+    "ThemeContribution",
     "Ui",
     "WRITE_MODE_CHANGED",
     "WriteModeOff",

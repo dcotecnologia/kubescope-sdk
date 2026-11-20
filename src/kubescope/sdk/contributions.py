@@ -50,6 +50,16 @@ class TabKind:
 
 
 @dataclass(frozen=True)
+class ThemeContribution:
+    """A color theme the extension offers, as the JSON document of a theme of
+    the app (`name`, `base`, `colors`, `opacity`); the app checks it."""
+
+    extension: str
+    id: str
+    document: dict[str, Any]
+
+
+@dataclass(frozen=True)
 class SettingsSection:
     """A section of the Settings, built by the extension."""
 

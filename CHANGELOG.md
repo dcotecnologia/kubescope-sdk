@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-20
+
+### Added
+
+- `Context.add_theme(theme_id, document)` and the permission `ui.theme`, so an extension offers color themes
+
 ## [1.1.0] - 2026-11-20
 
 ### Added
@@ -20,6 +26,7 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/dcotecnologia/kubescope-sdk/releases/tag/v1.0.0

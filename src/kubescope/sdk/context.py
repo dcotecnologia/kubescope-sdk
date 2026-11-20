@@ -11,7 +11,7 @@ does; they are not a sandbox, because an extension is Python that runs
 in the app, so only install one from a source you trust.
 """
 
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any, NamedTuple, Protocol
 
@@ -30,6 +30,7 @@ PERMISSIONS = (
     "ui.tab",
     "ui.page",
     "ui.settings",
+    "ui.theme",
     "ui.window",
     "cli",
 )
@@ -495,6 +496,17 @@ class Context(Protocol):
 
     def add_settings_section(self, title: str, factory: Callable[..., Any]) -> None:
         """Add a section to the Settings; needs `ui.settings`."""
+        ...
+
+    def add_theme(self, theme_id: str, document: Mapping[str, Any]) -> None:
+        """Offer a color theme, chosen in **Settings → Theme** like the ones of
+        the app.
+
+        `document` is what a theme file holds (`{"name": "Midnight",
+        "base": "dark", "colors": {"page": "#0b0f14"}}`); one the app
+        finds invalid is skipped and logged. The theme goes with the
+        extension. Needs `ui.theme`.
+        """
         ...
 
     def add_cli_command(self, name: str, run: Callable[[list[str]], int]) -> None:

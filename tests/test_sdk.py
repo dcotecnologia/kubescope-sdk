@@ -102,3 +102,14 @@ def test_the_aws_scope_names_where_a_context_signs_in() -> None:
 def test_a_forward_is_a_permission_of_its_own() -> None:
     assert "forward" in sdk.PERMISSIONS
     assert sdk.Forwards is not None
+
+
+def test_a_theme_is_a_permission_and_plain_data() -> None:
+    theme = sdk.ThemeContribution("dco.a", "midnight", {"name": "Midnight"})
+
+    assert "ui.theme" in sdk.PERMISSIONS
+    assert (theme.extension, theme.id, theme.document["name"]) == (
+        "dco.a",
+        "midnight",
+        "Midnight",
+    )

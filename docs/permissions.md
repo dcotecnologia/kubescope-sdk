@@ -16,6 +16,7 @@ you trust, and read what the dialog shows.
 | `ui.window` | use the window: messages, tasks, shortcuts | `ctx.ui`, `ctx.add_shortcut` |
 | `ui.page` | add a page to the side menu | `ctx.add_page` |
 | `ui.settings` | add a section to the Settings | `ctx.add_settings_section` |
+| `ui.theme` | add color themes | `ctx.add_theme` |
 | `ui.dock` | add a panel to the window | `ctx.add_dock` |
 | `ui.tab` | add a kind of tab | `ctx.add_tab_kind` |
 | `cli` | add a command to kubescope | `ctx.add_cli_command`, `ctx.cli` |

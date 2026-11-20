@@ -58,6 +58,7 @@ projects are written this way and are good places to read real code:
 | Show messages, run work off the UI thread, show details and logs, add shortcuts, use Qt | `ctx.ui` | `ui.window` |
 | Add a page with its entry in the side menu | `ctx.add_page` | `ui.page` |
 | Add a section to the Settings | `ctx.add_settings_section` | `ui.settings` |
+| Offer color themes | `ctx.add_theme` | `ui.theme` |
 | Add a command to the `kubescope` terminal program | `ctx.add_cli_command` | `cli` |
 | Do in the window what a person does by hand | `ctx.invoke` | none |
 | Keep preferences and files of its own | `ctx.settings`, `ctx.data_directory` | none |
