@@ -1,6 +1,6 @@
 [project]
 name = "kubescope-sdk"
-version = "1.2.0"
+version = "1.2.1"
 description = "The API that KubeScope and its extensions are written against"
 readme = "README.md"
 license = "MIT"
