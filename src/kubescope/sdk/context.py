@@ -16,7 +16,13 @@ from pathlib import Path
 from typing import Any, NamedTuple, Protocol
 
 from kubescope.sdk.events import Events
-from kubescope.sdk.models import ClusterResource, PodInfo, SearchHit, Workload
+from kubescope.sdk.models import (
+    ClusterEvent,
+    ClusterResource,
+    PodInfo,
+    SearchHit,
+    Workload,
+)
 
 API_VERSION = "0"  # unstable until it is 1
 
@@ -116,6 +122,13 @@ class ClusterAccess(Protocol):
         A kind the person may not list is left out instead of failing it
         all.
         """
+        ...
+
+    def get_events(
+        self, context: str, types: tuple[str, ...] = ("Warning",)
+    ) -> list[ClusterEvent]:
+        """The most recent events of every namespace whose `type` is one of
+        `types` (Normal or Warning), the newest first."""
         ...
 
     def describe_kube(self) -> str:
@@ -290,6 +303,12 @@ class Ui(Protocol):
     def themed(self, color: str, text: bool = False) -> str:
         """A color of the design as the theme in use shows it; `text` is for
         the color of a text on the background of the theme."""
+        ...
+
+    def add_top_bar_button(self, owner: str, button: Any) -> None:
+        """Put `button` (a widget of about 32 px) in the top bar, beside the
+        button of the Settings; the app takes it out when `owner`, the id of
+        the extension, is unloaded."""
         ...
 
     def reserve_corner(self, owner: str, pixels: int) -> None:

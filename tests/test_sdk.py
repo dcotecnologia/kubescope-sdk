@@ -59,8 +59,20 @@ def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
         "get_usage",
         "get_resources",
         "get_resource_details",
+        "get_events",
         "describe_kube",
     }
+
+
+def test_an_extension_may_add_a_button_to_the_top_bar() -> None:
+    assert "add_top_bar_button" in _names(sdk.Ui)
+
+
+def test_a_cluster_event_is_plain_data_with_an_identity() -> None:
+    from kubescope.sdk.models import ClusterEvent
+
+    event = ClusterEvent("u1", "Warning", "BackOff", "ns", "Pod", "p", "m", 2, 1.0, 5.0)
+    assert (event.uid, event.reason, event.last_seen) == ("u1", "BackOff", 5.0)
 
 
 def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> None:

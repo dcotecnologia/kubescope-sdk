@@ -325,6 +325,24 @@ class EventInfo:
 
 
 @dataclass(frozen=True, slots=True)
+class ClusterEvent:
+    """One event of the cluster with what is needed to follow it over time:
+    `uid` tells it from the others, and the times are seconds since the
+    epoch (UTC)."""
+
+    uid: str
+    type: str  # Normal or Warning
+    reason: str
+    namespace: str
+    kind: str  # of the object the event is about
+    name: str
+    message: str
+    count: int
+    first_seen: float
+    last_seen: float
+
+
+@dataclass(frozen=True, slots=True)
 class WorkloadsOverview:
     kinds: dict[str, KindSummary]  # by Kubernetes kind
     events: tuple[EventInfo, ...] = ()

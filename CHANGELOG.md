@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `ClusterAccess.get_events(context, types)` and the model `ClusterEvent` (`uid`, `type`, `reason`, `namespace`, `kind`, `name`, `message`, `count`, `first_seen`, `last_seen`), the events of the cluster with what an extension needs to follow them over time by @danilogco
+- `Ui.add_top_bar_button(owner, button)`, to put a button in the top bar beside the Settings by @danilogco
+
 ## [1.2.1] - 2026-11-20
 
 ### Fixed
