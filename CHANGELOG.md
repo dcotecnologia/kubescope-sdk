@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. The format 
 
 - `ClusterAccess.get_events(context, types)` and the model `ClusterEvent` (`uid`, `type`, `reason`, `namespace`, `kind`, `name`, `message`, `count`, `first_seen`, `last_seen`), the events of the cluster with what an extension needs to follow them over time by @danilogco
 - The event `NOTIFICATION` (`level`, `title`, `message`, `key`, `repeat`), with which the app tells an extension about an error, a warning or an update, to list them by @danilogco
+- `ClusterAccess.list_contexts()`, the contexts of the kubeconfig, and `Ui.show_system_notification(title, message, on_click)`, a notification of the operating system whose click brings the app forward by @danilogco
 - `Ui.add_top_bar_button(owner, button)`, to put a button in the top bar beside the Settings by @danilogco
 
 ## [1.2.1] - 2026-11-20

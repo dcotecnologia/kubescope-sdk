@@ -61,12 +61,13 @@ def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
         "get_resources",
         "get_resource_details",
         "get_events",
+        "list_contexts",
         "describe_kube",
     }
 
 
 def test_an_extension_may_add_a_button_to_the_top_bar() -> None:
-    assert "add_top_bar_button" in _names(sdk.Ui)
+    assert {"add_top_bar_button", "show_system_notification"} <= _names(sdk.Ui)
 
 
 def test_a_cluster_event_is_plain_data_with_an_identity() -> None:

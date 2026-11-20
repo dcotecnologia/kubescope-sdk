@@ -124,6 +124,10 @@ class ClusterAccess(Protocol):
         """
         ...
 
+    def list_contexts(self) -> list[str]:
+        """The names of the contexts of the kubeconfig, signed in or not."""
+        ...
+
     def get_events(
         self, context: str, types: tuple[str, ...] = ("Warning",)
     ) -> list[ClusterEvent]:
@@ -303,6 +307,19 @@ class Ui(Protocol):
     def themed(self, color: str, text: bool = False) -> str:
         """A color of the design as the theme in use shows it; `text` is for
         the color of a text on the background of the theme."""
+        ...
+
+    def show_system_notification(
+        self,
+        title: str,
+        message: str,
+        on_click: Callable[[], None] | None = None,
+    ) -> bool:
+        """Tell the person through the notifications of the operating system;
+        clicking it brings the app forward and then calls `on_click`.
+
+        False when the desktop cannot show one.
+        """
         ...
 
     def add_top_bar_button(self, owner: str, button: Any) -> None:
