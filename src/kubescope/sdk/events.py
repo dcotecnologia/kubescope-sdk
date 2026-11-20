@@ -14,7 +14,8 @@ WRITE_MODE_CHANGED = "write_mode_changed"  # write_mode: bool
 SHUTDOWN = "shutdown"
 # The app has something to tell the person: level: str ("error", "warning" or
 # "info"), title: str, message: str, key: str (the same key is the same
-# notice) and repeat: bool (whether the same key happening again counts)
+# notice), repeat: bool (whether the same key happening again counts) and
+# context: str (the context in use when it happened, "" when it is about none)
 NOTIFICATION = "notification"
 
 EVENTS = (
