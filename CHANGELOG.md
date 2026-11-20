@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Changed
+
+- The manifest documents `production`, what an extension keeps when it is installed (`languages` is always kept when it exists), and that `kubescope-extension.toml`, `LICENSE`, `README.md` and `src` are required by @danilogco
+
 ## [1.2.0] - 2026-11-20
 
 ### Added

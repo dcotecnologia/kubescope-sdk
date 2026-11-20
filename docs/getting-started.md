@@ -6,12 +6,14 @@ installs it. It takes about ten minutes.
 ## 1. The layout
 
 An extension is a folder with a `kubescope-extension.toml` and Python code. KubeScope looks for the
-manifest in the folder you give it (down at most three levels) and runs the code from the folder, or from its
-`src` folder when it has one.
+manifest in the folder you give it (down at most three levels) and runs the code from its `src` folder. The
+manifest, `LICENSE`, `README.md` and `src` are required; see [manifest.md](manifest.md#what-an-extension-must-have-and-what-is-installed).
 
 ```text
 kubescope-hello/
 ├── kubescope-extension.toml
+├── LICENSE
+├── README.md
 ├── pyproject.toml
 ├── src/
 │   └── kubescope/
@@ -35,6 +37,7 @@ entry = "kubescope.hello:activate"
 description = "Says hello from the side menu."
 author = "ACME"
 permissions = ["ui.page", "ui.window"]
+production = []             # only the required stays; list `assets`... if you have them; `languages` is always kept
 ```
 
 Every field is described in [manifest.md](manifest.md). Ask only for the permissions you use: the person
