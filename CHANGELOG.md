@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-20
+
 ### Added
 
 - `ClusterAccess.get_events(context, types)` and the model `ClusterEvent` (`uid`, `type`, `reason`, `namespace`, `kind`, `name`, `message`, `count`, `first_seen`, `last_seen`), the events of the cluster with what an extension needs to follow them over time by @danilogco
@@ -39,7 +41,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.0.0...v1.1.0
