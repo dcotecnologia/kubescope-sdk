@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `Ui.hide_side_menu(owner, hidden)`, to hide the side menu of the window while an extension needs the whole width, such as a focus mode by @danilogco
+
 ## [1.3.0] - 2026-11-20
 
 ### Added
