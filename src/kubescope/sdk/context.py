@@ -333,6 +333,13 @@ class Ui(Protocol):
         it back."""
         ...
 
+    def hide_side_menu(self, owner: str, hidden: bool) -> None:
+        """Hide the side menu of the window while `owner` asks it, so that the
+        page takes the whole width; the person's own choice of showing or
+        hiding the menu is kept and comes back when every owner gave it back
+        (`hidden` False), or when `owner` is unloaded."""
+        ...
+
 
 class App(Protocol):
     """What the extension may know about the app."""
