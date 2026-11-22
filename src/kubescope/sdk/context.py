@@ -333,6 +333,16 @@ class Ui(Protocol):
         it back."""
         ...
 
+    def content_area(self) -> tuple[int, int, int, int]:
+        """Where the pages of the window are, as (x, y, width, height) in the
+        coordinates of `central`: everything between the top bar and the
+        footer, the side menu included.
+
+        A panel that takes the place of the pages, such as a focus mode,
+        fills it and leaves the bars as they are.
+        """
+        ...
+
     def hide_side_menu(self, owner: str, hidden: bool) -> None:
         """Hide the side menu of the window while `owner` asks it, so that the
         page takes the whole width; the person's own choice of showing or

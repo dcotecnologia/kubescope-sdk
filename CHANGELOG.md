@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- `Ui.content_area()`, the area of the window between the top bar and the footer, for a panel that takes the place of the pages by @danilogco
 - `Ui.hide_side_menu(owner, hidden)`, to hide the side menu of the window while an extension needs the whole width, such as a focus mode by @danilogco
 
 ## [1.3.0] - 2026-11-20

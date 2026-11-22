@@ -109,6 +109,7 @@ and returns `False` when the local port is in use.
 | `show_settings(section="")` | Opens the Settings |
 | `themed(color, text=False)` | A color of the light theme as it is in the theme in use |
 | `reserve_corner(owner, pixels)` | Keeps the corner of the window clear for your own panel |
+| `content_area()` | Where the pages are, as `(x, y, width, height)` in the coordinates of `central`, between the top bar and the footer |
 | `hide_side_menu(owner, hidden)` | Hides the side menu so your page takes the whole width; the person's own choice comes back when you give it back |
 
 Your widgets are plain Qt (`PySide6`). The app's style sheet applies to them, so a button with
