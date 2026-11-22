@@ -38,6 +38,7 @@ def test_every_name_the_sdk_exports_exists() -> None:
         sdk.LANGUAGE_CHANGED,
         sdk.WRITE_MODE_CHANGED,
         sdk.SHUTDOWN,
+        sdk.SETTINGS_SHOWN,
         sdk.NOTIFICATION,
     }
 

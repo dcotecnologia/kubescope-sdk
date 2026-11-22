@@ -39,6 +39,7 @@ and skipped.
 | `WRITE_MODE_CHANGED` | `write_mode: bool` |
 | `THEME_CHANGED` | none |
 | `LANGUAGE_CHANGED` | none |
+| `SETTINGS_SHOWN` | `shown: bool`, the Settings page was opened or left |
 | `SHUTDOWN` | none |
 
 Accept `**_` in a handler so that a payload added later does not break it.
