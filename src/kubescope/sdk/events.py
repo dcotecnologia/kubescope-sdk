@@ -12,6 +12,8 @@ THEME_CHANGED = "theme_changed"
 LANGUAGE_CHANGED = "language_changed"
 WRITE_MODE_CHANGED = "write_mode_changed"  # write_mode: bool
 SHUTDOWN = "shutdown"
+# The Settings page was opened or left: shown: bool
+SETTINGS_SHOWN = "settings_shown"
 # The app has something to tell the person: level: str ("error", "warning" or
 # "info"), title: str, message: str, key: str (the same key is the same
 # notice), repeat: bool (whether the same key happening again counts) and
@@ -24,6 +26,7 @@ EVENTS = (
     LANGUAGE_CHANGED,
     WRITE_MODE_CHANGED,
     SHUTDOWN,
+    SETTINGS_SHOWN,
     NOTIFICATION,
 )
 

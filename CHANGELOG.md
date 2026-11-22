@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- The event `SETTINGS_SHOWN` (`shown`), for an extension whose panel fills the pages to give the Settings their place by @danilogco
 - `Ui.content_area()`, the area of the window between the top bar and the footer, for a panel that takes the place of the pages by @danilogco
 - `Ui.hide_side_menu(owner, hidden)`, to hide the side menu of the window while an extension needs the whole width, such as a focus mode by @danilogco
 
