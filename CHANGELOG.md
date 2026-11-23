@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-23
+
 ### Added
 
 - `ClusterAccess.get_custom_resources(context, group, version, plural, namespace)` and `Writes.patch_custom_resource(...)`, to read and merge-patch the custom resources (CRDs) of a cluster, for an extension about one of them by @danilogco
@@ -54,7 +56,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.0...v1.2.1
