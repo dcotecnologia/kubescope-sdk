@@ -58,6 +58,7 @@ Accept `**_` in a handler so that a payload added later does not break it.
 | `get_usage(context, namespace=None)` | Usage by `(kind, namespace, name)` |
 | `get_resources(context, namespace, kind)` | `(namespaces, resources)` of any kind |
 | `get_resource_details(context, kind, namespace, name)` | The document of one resource |
+| `get_custom_resources(context, group, version, plural, namespace=None)` | The list document of a custom resource (a CRD; the group has a dot in it) |
 | `search_resources(context)` | `SearchHit`s (kind, namespace, name) for the main resources of every namespace, sorted by name |
 | `describe_kube()` | The programs and kubeconfig the app reads the cluster with, in words |
 
@@ -70,7 +71,7 @@ Every call raises `WriteModeOff` unless the person turned the write mode on, so 
 call one, and tell them why when it is refused. Each call is made off the UI thread.
 
 `scale_deployment`, `restart_deployment`, `evict_pod`, `delete_pod`, `delete_resource` and
-`replace_resource`, each with the context, namespace and name.
+`replace_resource` and `patch_custom_resource` (a merge patch of a custom resource), each with the context, namespace and name.
 
 ## The AWS account: `ctx.aws` · `aws.read`
 

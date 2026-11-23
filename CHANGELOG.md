@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- `ClusterAccess.get_custom_resources(context, group, version, plural, namespace)` and `Writes.patch_custom_resource(...)`, to read and merge-patch the custom resources (CRDs) of a cluster, for an extension about one of them by @danilogco
+- `Context.set_pages(key, pages)` and the model `PageSpec`, to give the side menu pages that are known only while the app runs (the custom resources of a cluster) by @danilogco
+
 ## [1.4.0] - 2026-11-22
 
 ### Added

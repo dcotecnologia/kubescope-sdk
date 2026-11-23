@@ -38,6 +38,20 @@ class PageContribution:
     subtitle: str = ""
     visible: Callable[[], bool] | None = None
     refresh: Callable[[], None] | None = None  # the refresh button of the header
+    key: str = ""  # the `set_pages` that made it; empty for an `add_page`
+
+
+@dataclass(frozen=True)
+class PageSpec:
+    """A page an extension gives to `set_pages`: what `add_page` takes."""
+
+    section: str
+    group: str
+    title: str
+    factory: Callable[..., Any]
+    subtitle: str = ""
+    visible: Callable[[], bool] | None = None
+    refresh: Callable[[], None] | None = None
 
 
 @dataclass(frozen=True)

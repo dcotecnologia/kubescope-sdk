@@ -62,6 +62,7 @@ def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
         "get_resources",
         "get_resource_details",
         "get_events",
+        "get_custom_resources",
         "list_contexts",
         "describe_kube",
     }
@@ -88,6 +89,7 @@ def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> Non
         "delete_pod",
         "delete_resource",
         "replace_resource",
+        "patch_custom_resource",
     }
 
 
@@ -128,3 +130,17 @@ def test_a_theme_is_a_permission_and_plain_data() -> None:
         "midnight",
         "Midnight",
     )
+
+
+def test_a_page_given_at_run_time_is_plain_data_that_names_no_key() -> None:
+    spec = sdk.PageSpec("Custom Resources", "a.io", "Things", lambda: None)
+
+    assert (spec.section, spec.group, spec.title) == (
+        "Custom Resources",
+        "a.io",
+        "Things",
+    )
+    assert spec.subtitle == "" and spec.visible is None and spec.refresh is None
+    page = sdk.PageContribution("dco.a", "S", "G", "T", lambda: None)
+    assert page.key == ""
+    assert "set_pages" in _names(sdk.Context)

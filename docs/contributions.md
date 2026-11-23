@@ -24,6 +24,9 @@ ctx.add_page(
 - `refresh` shows the refresh button of the header of the window, like the other pages, and calls your
   function when it is pressed.
 - Entries with the same `section` and `group` share the label and the group.
+- For entries known only while the app runs (the custom resources of a cluster), `ctx.set_pages(key, [PageSpec(...), ...])`
+  replaces the pages an earlier call with the same `key` gave and builds the menu again, so a page that is open is
+  left for the Overview: call it only when the entries change, on the UI thread (`run_action` answers there).
 - Translate the texts you pass: the app does not know your contexts. See *Translations* below.
 
 ## A section of the Settings · `ui.settings`

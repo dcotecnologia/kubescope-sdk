@@ -11,10 +11,11 @@ does; they are not a sandbox, because an extension is Python that runs
 in the app, so only install one from a source you trust.
 """
 
-from collections.abc import Callable, Mapping
+from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any, NamedTuple, Protocol
 
+from kubescope.sdk.contributions import PageSpec
 from kubescope.sdk.events import Events
 from kubescope.sdk.models import (
     ClusterEvent,
@@ -135,6 +136,22 @@ class ClusterAccess(Protocol):
         `types` (Normal or Warning), the newest first."""
         ...
 
+    def get_custom_resources(
+        self,
+        context: str,
+        group: str,
+        version: str,
+        plural: str,
+        namespace: str | None = None,
+    ) -> dict[str, Any]:
+        """The list document of a custom resource (a CRD) of `group`, which has
+        a dot in it (`external-secrets.io`), as the cluster gives it.
+
+        A kind the cluster does not serve raises `ClusterError` with the
+        words of the cluster ("could not find the requested resource").
+        """
+        ...
+
     def describe_kube(self) -> str:
         """The programs and the kubeconfig the app reads the cluster with, in
         words."""
@@ -232,6 +249,20 @@ class Writes(Protocol):
         document: dict[str, Any],
     ) -> None:
         """Replace a resource with a document."""
+        ...
+
+    def patch_custom_resource(
+        self,
+        context: str,
+        group: str,
+        version: str,
+        plural: str,
+        namespace: str,
+        name: str,
+        patch: dict[str, Any],
+    ) -> None:
+        """Merge `patch` (a JSON merge patch) into a custom resource of
+        `group`, which has a dot in it."""
         ...
 
 
@@ -540,6 +571,17 @@ class Context(Protocol):
         `refresh`, the header of the window shows its refresh button
         while the page is open, like the other pages, and calls it.
         Needs `ui.page`.
+        """
+        ...
+
+    def set_pages(self, key: str, pages: Sequence[PageSpec]) -> None:
+        """Give the side menu the pages `pages`, for entries that are known
+        only while the app runs (the custom resources of a cluster).
+
+        It replaces the pages an earlier `set_pages` with the same `key`
+        gave and builds the menu again, so a page that is open is left
+        for the Overview: call it only when the entries change. It is
+        made on the UI thread. Needs `ui.page`.
         """
         ...
 
