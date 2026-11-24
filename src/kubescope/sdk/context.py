@@ -152,6 +152,17 @@ class ClusterAccess(Protocol):
         """
         ...
 
+    def environment(self, context: str) -> dict[str, str]:
+        """What a program that you start for `context` needs in its environment
+        (the keys of its integration account), or nothing; add it to your own
+        environment."""
+        ...
+
+    def helm_chart_name(self, context: str, namespace: str, release: str) -> str:
+        """The chart a Helm release installed, as the add-ons list read it;
+        `release` itself when it is not known."""
+        ...
+
     def describe_kube(self) -> str:
         """The programs and the kubeconfig the app reads the cluster with, in
         words."""
@@ -263,6 +274,16 @@ class Writes(Protocol):
     ) -> None:
         """Merge `patch` (a JSON merge patch) into a custom resource of
         `group`, which has a dot in it."""
+        ...
+
+    def run_update(self, context: str, arguments: list[str]) -> str:
+        """Run the command that updates what the add-ons list shows as
+        installed (`aws eks update-addon`, `helm upgrade`, `az k8s-extension
+        update`) with the keys of the context and the kubeconfigs of the app,
+        and return what the program printed.
+
+        Nothing else runs: another program or verb raises `ClusterError`.
+        """
         ...
 
 

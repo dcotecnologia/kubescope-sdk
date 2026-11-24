@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-24
+
+### Added
+
+- `ClusterAccess.environment(context)` and `ClusterAccess.helm_chart_name(...)`, and `Writes.run_update(context, arguments)`, so that an extension can show the add-ons and the Helm releases of a cluster and update them, with the write mode and a short list of commands guarding the update by @danilogco
+
 ## [1.5.0] - 2026-11-23
 
 ### Added
@@ -56,7 +62,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.2.1...v1.3.0

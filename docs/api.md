@@ -60,6 +60,8 @@ Accept `**_` in a handler so that a payload added later does not break it.
 | `get_resource_details(context, kind, namespace, name)` | The document of one resource |
 | `get_custom_resources(context, group, version, plural, namespace=None)` | The list document of a custom resource (a CRD; the group has a dot in it) |
 | `search_resources(context)` | `SearchHit`s (kind, namespace, name) for the main resources of every namespace, sorted by name |
+| `environment(context)` | The environment a program you start for the context needs (the keys of its integration account), or nothing |
+| `helm_chart_name(context, namespace, release)` | The chart a Helm release installed, or the release name when unknown |
 | `describe_kube()` | The programs and kubeconfig the app reads the cluster with, in words |
 
 The models (`Workload`, `PodInfo`, `ClusterResource`, `NodeInfo`, `EventInfo`, ...) are frozen dataclasses in
@@ -72,6 +74,8 @@ call one, and tell them why when it is refused. Each call is made off the UI thr
 
 `scale_deployment`, `restart_deployment`, `evict_pod`, `delete_pod`, `delete_resource` and
 `replace_resource` and `patch_custom_resource` (a merge patch of a custom resource), each with the context, namespace and name.
+
+`run_update(context, arguments)` runs the command that updates an add-on or a Helm release (`aws eks update-addon`, `helm upgrade`, `az k8s-extension update`) with the keys of the context and the kubeconfigs of the app, and returns what the program printed; any other program or verb raises `ClusterError`.
 
 ## The AWS account: `ctx.aws` · `aws.read`
 

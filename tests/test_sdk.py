@@ -64,6 +64,8 @@ def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
         "get_events",
         "get_custom_resources",
         "list_contexts",
+        "environment",
+        "helm_chart_name",
         "describe_kube",
     }
 
@@ -79,7 +81,7 @@ def test_a_cluster_event_is_plain_data_with_an_identity() -> None:
     assert (event.uid, event.reason, event.last_seen) == ("u1", "BackOff", 5.0)
 
 
-def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> None:
+def test_the_writes_are_named_and_the_only_program_is_the_one_that_updates() -> None:
     names = _names(sdk.Writes)
 
     assert names == {
@@ -90,6 +92,7 @@ def test_the_writes_are_named_and_there_is_no_way_to_run_something_else() -> Non
         "delete_resource",
         "replace_resource",
         "patch_custom_resource",
+        "run_update",
     }
 
 
