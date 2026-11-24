@@ -62,6 +62,8 @@ Accept `**_` in a handler so that a payload added later does not break it.
 | `search_resources(context)` | `SearchHit`s (kind, namespace, name) for the main resources of every namespace, sorted by name |
 | `environment(context)` | The environment a program you start for the context needs (the keys of its integration account), or nothing |
 | `helm_chart_name(context, namespace, release)` | The chart a Helm release installed, or the release name when unknown |
+| `eks_target(context)` | The AWS CLI arguments that name the EKS cluster of the context (`--cluster-name`, `--region`, `--profile`) |
+| `aks_cluster(context)` | The name and resource group of the AKS cluster of the context |
 | `describe_kube()` | The programs and kubeconfig the app reads the cluster with, in words |
 
 The models (`Workload`, `PodInfo`, `ClusterResource`, `NodeInfo`, `EventInfo`, ...) are frozen dataclasses in

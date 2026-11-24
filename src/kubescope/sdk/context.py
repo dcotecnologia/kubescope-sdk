@@ -163,6 +163,18 @@ class ClusterAccess(Protocol):
         `release` itself when it is not known."""
         ...
 
+    def eks_target(self, context: str) -> list[str]:
+        """The AWS CLI arguments that name the EKS cluster of a context
+        (`--cluster-name`, `--region` and `--profile`, as `aws eks update-
+        addon` takes them); raises `ClusterError` when it is not an EKS
+        context."""
+        ...
+
+    def aks_cluster(self, context: str) -> tuple[str, str]:
+        """The name and the resource group of the AKS cluster of a context;
+        raises `ClusterError` when it is not an AKS context."""
+        ...
+
     def describe_kube(self) -> str:
         """The programs and the kubeconfig the app reads the cluster with, in
         words."""

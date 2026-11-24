@@ -66,6 +66,8 @@ def test_the_cluster_access_lists_what_an_extension_may_read() -> None:
         "list_contexts",
         "environment",
         "helm_chart_name",
+        "eks_target",
+        "aks_cluster",
         "describe_kube",
     }
 

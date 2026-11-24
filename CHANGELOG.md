@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.7.0] - 2026-11-24
+
+### Added
+
+- `ClusterAccess.eks_target(context)` and `ClusterAccess.aks_cluster(context)`, the arguments that name the EKS cluster and the name and resource group of the AKS cluster of a context, for the command that updates an add-on by @danilogco
+
 ## [1.6.0] - 2026-11-24
 
 ### Added
@@ -62,7 +68,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.3.0...v1.4.0
