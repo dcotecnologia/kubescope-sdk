@@ -486,3 +486,18 @@ def test_a_search_ranks_what_starts_with_it_before_what_only_has_it(
     query, text, rank
 ) -> None:
     assert match_rank(query, text) == rank
+
+
+def test_natural_key_orders_ages_numbers_versions_and_text_like_a_person() -> None:
+    from kubescope.sdk.models import natural_key
+
+    def ordered(cells):
+        return sorted(cells, key=natural_key)
+
+    assert ordered(["1d", "5m", "2h", "30s"]) == ["30s", "5m", "2h", "1d"]
+    assert ordered(["2d", "30h", "1h", "1a"]) == ["1h", "30h", "2d", "1a"]
+    assert ordered(["10", "9", "100"]) == ["9", "10", "100"]
+    assert ordered(["50%", "7%", "3,5%"]) == ["3,5%", "7%", "50%"]
+    assert ordered(["1.10.0", "1.9.0", "v1.2.0"]) == ["v1.2.0", "1.9.0", "1.10.0"]
+    assert ordered(["b", "A", "c"]) == ["A", "b", "c"]
+    assert ordered(["—", "a", "", "1"]) == ["1", "a", "—", ""]  # nothing goes last

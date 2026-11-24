@@ -69,6 +69,10 @@ Accept `**_` in a handler so that a payload added later does not break it.
 The models (`Workload`, `PodInfo`, `ClusterResource`, `NodeInfo`, `EventInfo`, ...) are frozen dataclasses in
 `kubescope.sdk.models`.
 
+For a table that sorts when a header is clicked, `natural_key(text)` in the same module is the sort key of a cell: an age
+(`5m`, `1d2h`) by how long it is, a number by its value, a version (`1.10.0` after `1.9.0`) and any other text by its words,
+with an empty cell or a dash last. The app's own tables sort the same way.
+
 ## Changing a cluster: `ctx.writes` · `cluster.write`
 
 Every call raises `WriteModeOff` unless the person turned the write mode on, so ask the person before you

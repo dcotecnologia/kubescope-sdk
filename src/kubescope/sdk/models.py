@@ -435,6 +435,31 @@ def age_seconds(age: str) -> float:
     return float(years * YEAR + days * DAY + hours * 3600 + minutes * 60 + secs)
 
 
+_NUMBER = re.compile(r"[-+]?\d+(?:[.,]\d+)?%?")
+_CHUNKS = re.compile(r"(\d+)")
+
+
+def natural_key(text: str) -> tuple:
+    """A key that orders what a table cell says the way a person would: an age
+    ("5m", "1d2h") by how long it is, a number by its value, a version
+    ("1.10.0" after "1.9.0") and any other text by its words without regard to
+    case; an empty cell or a dash goes last."""
+    shown = text.strip()
+    if not shown or shown in ("—", "-"):
+        return (3,)
+    if _NUMBER.fullmatch(shown):
+        return (0, float(shown.rstrip("%").replace(",", ".")), "")
+    seconds = age_seconds(shown)
+    if seconds != float("inf"):
+        return (0, seconds, "")
+    parts = tuple(
+        (0, int(chunk), "") if chunk.isdigit() else (1, 0, chunk.casefold())
+        for chunk in _CHUNKS.split(shown.lstrip("v"))
+        if chunk
+    )
+    return (1, parts)
+
+
 def workload_sort_key(workload: Workload, column: int) -> tuple:
     """Sort key for a workloads table column; status ranks worst first."""
     by_name = (
