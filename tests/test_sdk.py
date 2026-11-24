@@ -95,6 +95,7 @@ def test_the_writes_are_named_and_the_only_program_is_the_one_that_updates() -> 
         "replace_resource",
         "patch_custom_resource",
         "run_update",
+        "run_remove",
     }
 
 

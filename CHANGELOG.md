@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-11-24
+
+### Added
+
+- `Writes.run_remove(context, arguments)`, to run the commands that remove an add-on or a Helm release (`aws eks delete-addon`, `helm uninstall`, `az k8s-extension delete`), only in the write mode and only those by @danilogco
+
 ## [1.8.0] - 2026-11-24
 
 ### Added
@@ -74,7 +80,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.5.0...v1.6.0

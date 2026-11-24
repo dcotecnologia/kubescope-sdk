@@ -83,6 +83,8 @@ call one, and tell them why when it is refused. Each call is made off the UI thr
 
 `run_update(context, arguments)` runs the command that updates an add-on or a Helm release (`aws eks update-addon`, `helm upgrade`, `az k8s-extension update`) with the keys of the context and the kubeconfigs of the app, and returns what the program printed; any other program or verb raises `ClusterError`.
 
+`run_remove(context, arguments)` does the same for the commands that remove one (`aws eks delete-addon`, `helm uninstall`, `az k8s-extension delete`).
+
 ## The AWS account: `ctx.aws` · `aws.read`
 
 | Call | What it does |

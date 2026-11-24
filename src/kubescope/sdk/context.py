@@ -298,6 +298,16 @@ class Writes(Protocol):
         """
         ...
 
+    def run_remove(self, context: str, arguments: list[str]) -> str:
+        """Run the command that removes what the add-ons list shows as
+        installed (`aws eks delete-addon`, `helm uninstall`, `az k8s-extension
+        delete`) the way `run_update` runs an update, and return what the
+        program printed.
+
+        Nothing else runs: another program or verb raises `ClusterError`.
+        """
+        ...
+
 
 class Forwards(Protocol):
     """The port forwards of the app, listed on its Forwards page."""
