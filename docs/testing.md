@@ -40,9 +40,15 @@ page can be tested without threads. [kubescope-aws](https://github.com/dcotecnol
 complete set in `tests/conftest.py`.
 
 If the page uses `ctx.ui.components`, the fake `ui` needs a `components` too: see
-[Components](components.md#testing-a-page-that-uses-them).
+[the wiki](wiki/8-testing.md).
 
-For widgets, set `QT_QPA_PLATFORM=offscreen` and replace `QDialog.exec`, `QMenu.exec` and `QMessageBox.exec`
+For widgets, the app lends a kit that imports no Qt class in your test: `kubescope.extensions.testing`
+(`application()`, `settle()`, `cleanup()` for a fixture, `find`, `find_all`, `buttons` and `texts` by kind of
+widget, `badge_of`, `click`, `refuse_modals` and `answer_dialogs`), and `UiComponents` of
+`kubescope.extensions.components` as the real `ctx.ui.components` of a fake `ui`. A test of an extension never
+imports `PySide6`: see the rule in [the wiki](wiki/README.md).
+
+If you do not use the kit, set `QT_QPA_PLATFORM=offscreen` and replace `QDialog.exec`, `QMenu.exec` and `QMessageBox.exec`
 so that a test that opens a modal dialog fails instead of hanging.
 
 ## Keep the extension independent

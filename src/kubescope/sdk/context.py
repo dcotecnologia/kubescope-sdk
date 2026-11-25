@@ -356,7 +356,7 @@ class Components(Protocol):
         ...
 
     def header_sorter(
-        self, table: Any, apply: Callable[[int, Any], None] | None = None
+        self, table: Any, apply: Callable[[int, bool], None] | None = None
     ) -> Any:
         """Sort `table` when a header is clicked, ascending first and reversed
         on the next click, by what the cells mean (ages, numbers, versions).
@@ -429,8 +429,417 @@ class Components(Protocol):
         `maximum`, as the forms of the app have them."""
         ...
 
+    def time_field(self) -> Any:
+        """A field for a time of the day, as `HH:mm` (`QTimeEdit`)."""
+        ...
+
+    def set_time(self, field: Any, text: str) -> None:
+        """Show a time given as `HH:mm` in a time field."""
+        ...
+
+    def time_text(self, field: Any) -> str:
+        """The time of a time field, as `HH:mm`."""
+        ...
+
+    def spacer(self, height: int) -> Any:
+        """Empty room `height` pixels high between the parts of a column."""
+        ...
+
+    def check_matrix(
+        self, headers: Sequence[str], rows: Sequence[tuple[str, str]]
+    ) -> Any:
+        """A table of check boxes: a column for each of `headers` and a line
+        for each `(key, text)` of `rows`.
+
+        Returns `(frame, boxes)`: the frame to put in the page, and for
+        each header a dict of its check boxes by key.
+        """
+        ...
+
+    def text_area(self, placeholder: str = "", max_height: int = 0) -> Any:
+        """A box of several lines of text to type in (`QPlainTextEdit`)."""
+        ...
+
     def muted_label(self, text: str = "") -> Any:
         """A note in the soft color of the app (`QLabel`)."""
+        ...
+
+    def label(
+        self, text: str = "", variant: str = "", wrap: bool = False, align: str = ""
+    ) -> Any:
+        """A text (`QLabel`).
+
+        `variant` is `""` (the normal text), `muted` (a soft note),
+        `summary` (the line that says what is listed), `filter` (the
+        small title of a filter), `title` (a larger bold title) or
+        `mark` (a bold mark); `wrap` breaks it into lines.
+        """
+        ...
+
+    def checkbox(
+        self,
+        text: str,
+        checked: bool = False,
+        on_toggle: Callable[[bool], None] | None = None,
+    ) -> Any:
+        """A check box (`QCheckBox`); `on_toggle` is told whether it is
+        checked."""
+        ...
+
+    def icon_button(
+        self,
+        icon: Any,
+        tip: str,
+        on_click: Callable[[], None] | None = None,
+        variant: str = "link",
+    ) -> Any:
+        """A button that is only an icon (a `QIcon`), with its tip."""
+        ...
+
+    def command_box(self, text: str = "", height: int = 96) -> Any:
+        """A box for a command or a text to read and copy (a read-only
+        `QPlainTextEdit` in the fixed font)."""
+        ...
+
+    def table_item(self, text: str, tip: str = "", checked: bool | None = None) -> Any:
+        """A cell for a table (`QTableWidgetItem`) with the text color of the
+        theme in use, and `tip` for its tip.
+
+        With `checked` it has a check box, checked or not.
+        """
+        ...
+
+    def set_item_checked(self, item: Any, checked: bool | None) -> None:
+        """Give a cell a check box, checked or not; `None` takes it away."""
+        ...
+
+    def item_checked(self, item: Any) -> bool | None:
+        """Whether the check box of a cell is checked; `None` when it has
+        none."""
+        ...
+
+    def menu(self, parent: Any = None) -> Any:
+        """A menu (`QMenu`), as the right click of a row opens."""
+        ...
+
+    def scroll(self, content: Any) -> Any:
+        """`content` in a scroll area without a frame."""
+        ...
+
+    def card(self, *items: Any, name: str = "", min_height: int = 0) -> Any:
+        """A rounded box (`QFrame`) with `items` one under the other; see
+        `column` for what an item can be.
+
+        `name` is its object name.
+        """
+        ...
+
+    def image_label(self, size: int) -> Any:
+        """A square, `size` pixels wide, for an image (`setPixmap`)."""
+        ...
+
+    def grid_scroll(self, spacing: int = 12) -> Any:
+        """A scroll area with a grid in it, for cards side by side:
+
+        `(area, grid)`, where `area` is a `QScrollArea` to put in the
+        page and `grid` a `QGridLayout` to add to.
+        """
+        ...
+
+    def row(self, *items: Any, spacing: int = 12) -> Any:
+        """A row of widgets (`QHBoxLayout`).
+
+        An item is a widget, a layout, `None` for a stretch that pushes
+        what follows to the right, or `(widget, stretch)`.
+        """
+        ...
+
+    def column(self, *items: Any, spacing: int = 10) -> Any:
+        """The same, one under the other (`QVBoxLayout`)."""
+        ...
+
+    def widget(
+        self,
+        shown: Callable[[], None] | None = None,
+        hidden: Callable[[], None] | None = None,
+        load: Callable[[], None] | None = None,
+        save: Callable[[], bool] | None = None,
+    ) -> Any:
+        """The widget of your page, or of your section of the Settings, to give
+        to `add_page` or `add_settings_section` and to lay out with `page`.
+
+        The app calls `shown` when the page is opened, and `load` and
+        `save` for a section of the Settings; `hidden` is called when
+        the widget is hidden. Keep your page as a plain object that
+        holds this widget, and do not subclass a Qt class.
+        """
+        ...
+
+    def copy_text(self, text: str) -> None:
+        """Put `text` on the clipboard."""
+        ...
+
+    def timer(
+        self,
+        interval_ms: int,
+        callback: Callable[[], None],
+        owner: Any = None,
+        single_shot: bool = False,
+    ) -> Any:
+        """A timer that calls `callback` every `interval_ms` once it is
+        started, or once with `single_shot`: `start()`, `stop()` and
+        `is_active()`.
+
+        It goes away with `owner`, a widget.
+        """
+        ...
+
+    def after(self, delay_ms: int, owner: Any, callback: Callable[[], None]) -> None:
+        """Call `callback` once, in `delay_ms`, unless `owner` is gone."""
+        ...
+
+    def icon(self, name: str, color: str, **options: Any) -> Any:
+        """An icon of the app by name, in `color`: `update`, `info`, `trash`,
+        `bell`, `send`, `stop`, `attach`, `popout`, `dock`, `gear`, `chat-
+        trash`, `close`, `plus`, `focus` (`active=True` for the leaving one)
+        and `sparkle` (`size` and the `inside` color)."""
+        ...
+
+    def open_url(self, url: str) -> None:
+        """Open an address in the browser of the person."""
+        ...
+
+    def on_context_menu(self, table: Any, handler: Callable[[int, int], None]) -> None:
+        """Call `handler(x, y)` on a right click in a table, with the place in
+        its rows (`table.rowAt(y)` says which); open the menu with
+        `show_menu`."""
+        ...
+
+    def show_menu(self, menu: Any, table: Any, x: int, y: int) -> None:
+        """Open `menu` at the place `(x, y)` of the rows of `table`."""
+        ...
+
+    def image(self, data: bytes, size: int) -> Any:
+        """An image of those bytes, scaled to fit `size` pixels; `None` when it
+        is not one that can be drawn.
+
+        Give it to `set_image`.
+        """
+        ...
+
+    def set_image(self, label: Any, image: Any) -> None:
+        """Show an image from `image` in a label (see `image_label`)."""
+        ...
+
+    def on_resize(self, widget: Any, callback: Callable[[], None]) -> None:
+        """Call `callback` when `widget` is resized."""
+        ...
+
+    def grid_cell(
+        self,
+        grid: Any,
+        widget: Any,
+        row: int,
+        column: int,
+        column_span: int = 1,
+        center: bool = False,
+    ) -> None:
+        """Put `widget` in a cell of a grid (from `grid_scroll`), over
+        `column_span` columns, centered in them when asked."""
+        ...
+
+    def bottom_of(self, widget: Any, host: Any) -> int:
+        """Where the bottom edge of `widget` is, as a y in the coordinates of
+        `host`."""
+        ...
+
+    def is_alive(self, widget: Any) -> bool:
+        """Whether a widget still exists: the app deletes a page it built when
+        it builds its menu again."""
+        ...
+
+    def side_panel(
+        self,
+        host: Any,
+        title: str,
+        actions: Sequence[Any],
+        top: Callable[[], int],
+        close_text: str = "✕",
+        empty_text: str = "",
+    ) -> Any:
+        """A panel that slides in from the right edge of `host` (the
+        `ui.central` widget), under the top bar (`top()` is where it starts):
+
+        a title, the `actions` buttons in its header, a close button and
+        a scrolling list of cards (`show_cards`). It is opened and
+        closed with `open_panel()` and `close_panel()`, remembers the
+        width the person dragged it to (`on_resized`) and tells when it
+        closed (`on_closed`); `is_inside(point)` says a click is of its
+        own button, and `opened` says whether it is open.
+        """
+        ...
+
+    def notice_card(
+        self,
+        title: str,
+        kind: str,
+        about: str,
+        message: str,
+        when: str,
+        level: str,
+        unread: bool,
+        tip: str,
+        on_click: Callable[[], None],
+        actions: Sequence[tuple[str, Callable[[], None]]] = (),
+    ) -> Any:
+        """A card for a list of notices: `title` and `kind` on the first line,
+        where it is `about`, its `message`, `when` it began and links `(text,
+        callback)` under it.
+
+        `level` is `error`, `warning` or `info`; an read one (`unread`
+        false) is crossed out. A click on it calls `on_click`.
+        """
+        ...
+
+    def counter_button(self, icon: Any, tip: str, name: str = "counterButton") -> Any:
+        """A flat 32 px button for the top bar, with a red badge for a count
+        (`set_unread(count)`); it can be checked while its panel is open and
+        takes the colors of the theme (`restyle(themed)`)."""
+        ...
+
+    def ask(self, parent: Any, title: str, text: str) -> bool:
+        """A Yes or No question; True for Yes, and No is the default."""
+        ...
+
+    def guide(
+        self,
+        parent: Any,
+        title: str,
+        text: str,
+        detail: str,
+        buttons: Sequence[tuple[str, Callable[[], None]]],
+        close_text: str,
+    ) -> None:
+        """A message with a longer `detail` and a button for each `(text,
+        callback)`, which runs its callback and closes it, and a last one
+        (`close_text`) that only closes it."""
+        ...
+
+    def let_window_shrink(self, window: Any, shrink: bool) -> None:
+        """Let the main window be made as small as its layout allows (a page
+        that needs no width), or give back the least it asked."""
+        ...
+
+    def palette(self, parent: Any, title: str, placeholder: str, loading: str) -> Any:
+        """The window that finds a screen, an action or a resource as one types,
+        like a command palette: `open_with(entries)` shows it with entries that
+        have `label`, `detail` and `run`; `set_resources(hits, run)` adds what
+        was found in the cluster; `resources_failed(text)` says why not."""
+        ...
+
+    def background(
+        self,
+        function: Callable[[], Any],
+        on_piece: Callable[[Any], None] | None = None,
+        on_done: Callable[[Any], None] | None = None,
+        on_error: Callable[[str], None] | None = None,
+        on_finished: Callable[[], None] | None = None,
+        stream: bool = False,
+    ) -> Any:
+        """Run `function` off the UI thread and hear from it on it:
+
+        `on_done(answer)`, `on_error(message)` and `on_finished()`. With
+        `stream`, `function` is a generator and `on_piece(piece)` hears
+        each piece as it is made. The handle has `stopped` (set it to
+        cut a stream short; the generator is closed) and `wait(ms)`.
+        """
+        ...
+
+    def chat_view(self, texts: dict[str, str]) -> Any:
+        """A conversation with an assistant laid out as a chat, with its
+        composer: bubbles (`add_bubble`), what is attached (`show_chips`),
+        the status, the usage ring and the action cards. It tells what the
+        person does through signals (`submitted`, `stop_requested`,
+        `attach_requested`, `image_pasted`, `files_pasted`, `text_pasted`,
+        `ring_clicked`). `texts` are its words in the language of the app."""
+        ...
+
+    def chat_dock(self, host: Any, name: str, texts: dict[str, str]) -> Any:
+        """The round button in the corner of `host` and the chat panel it
+        opens, which can be resized, taken out into a window or made to fill
+        the page; `texts` are the words of the panel, by their English text."""
+        ...
+
+    def open_file(self, parent: Any, title: str, start: str = "") -> str:
+        """Ask the person to choose a file to open; its path, or an empty text
+        when they gave up.
+
+        `start` is the folder it opens in.
+        """
+        ...
+
+    def error_banner(
+        self,
+        details_text: str = "Details",
+        hide_text: str = "Hide",
+        dismiss_text: str = "Dismiss",
+    ) -> Any:
+        """A red banner for what went wrong.
+
+        It starts hidden; put `banner.frame` in the page, and call
+        `banner.show_error(text, details)` for a line with the whole
+        error one click away (`banner.dismiss()` hides it). The three
+        texts name its buttons, in your language.
+        """
+        ...
+
+    def form(self, rows: Sequence[tuple[str, Any]]) -> Any:
+        """Rows of a form (`QFormLayout`): a `(text, field)` for each."""
+        ...
+
+    def page(
+        self,
+        parent: Any,
+        *,
+        filters: Any = None,
+        actions: Any = None,
+        notice: Any = None,
+        body: Any = None,
+        footer: Any = None,
+    ) -> Any:
+        """Lay `parent` (the widget of your page) out as the pages of the
+        app: the `filters` row, the `actions` row, a `notice`, the `body`
+        (which takes what is left) and the `footer` row; leave out what the
+        page does not have. The rows are layouts, made with `row`."""
+        ...
+
+    def dialog(
+        self,
+        parent: Any,
+        title: str,
+        body: Any,
+        buttons: Sequence[Any],
+        width: int = 0,
+    ) -> Any:
+        """A dialog (`QDialog`) with `body` (a layout or a widget) above a row
+        of `buttons` at the right; call `exec()` on it."""
+        ...
+
+    def confirm(
+        self,
+        parent: Any,
+        title: str,
+        text: str,
+        ok: str = "OK",
+        detail: str = "",
+        warning: bool = False,
+    ) -> bool:
+        """Ask the person to confirm something; True when they chose `ok`.
+
+        `detail` is a longer text under `text` (the commands about to
+        run, say) and `warning` shows the warning icon. Cancel is the
+        default answer.
+        """
         ...
 
 

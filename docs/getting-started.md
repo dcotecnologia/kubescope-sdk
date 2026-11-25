@@ -54,22 +54,32 @@ def activate(ctx: Context) -> None:
     from kubescope.hello.page import HelloPage
 
     ctx.add_page(
-        "Cloud", "Hello", "Greeting", lambda: HelloPage(ctx), subtitle="A first page"
+        "Cloud",
+        "Hello",
+        "Greeting",
+        lambda: HelloPage(ctx).widget,
+        subtitle="A first page",
     )
 ```
 
 ```python
 # src/kubescope/hello/page.py
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
-
-from kubescope.sdk import CONTEXT_CHANGED, Context
+from kubescope.sdk import CONTEXT_CHANGED, Context, translate
 
 
-class HelloPage(QWidget):
+class HelloPage:
+    """A page is a plain object that holds its widget: no Qt class is imported."""
+
     def __init__(self, ctx: Context) -> None:
-        super().__init__()
-        self.label = QLabel()
-        QVBoxLayout(self).addWidget(self.label)
+        assert ctx.ui is not None
+        components = ctx.ui.components
+        self.label = components.label()
+        self.widget = components.widget(
+            shown=self.shown
+        )  # what the app puts in the window
+        components.page(
+            self.widget, body=self.label
+        )  # laid out as the pages of the app
         ctx.events.on(
             CONTEXT_CHANGED, lambda context=None, **_: self.show_context(context)
         )
@@ -79,8 +89,12 @@ class HelloPage(QWidget):
         pass
 
     def show_context(self, context: str | None) -> None:
-        self.label.setText(f"Hello, {context or 'nobody'}")
+        self.label.setText(
+            translate("HelloPage", "Hello, {name}").format(name=context or "nobody")
+        )
 ```
+
+The factory you give `ctx.add_page` returns the **widget** of the page: `lambda: HelloPage(ctx).widget`.
 
 `activate(ctx)` runs when the extension is loaded. Whatever it registers (pages, shortcuts, handlers,
 commands) is taken back when the extension is unloaded. To close something of your own (a thread, a
@@ -93,7 +107,7 @@ process), call `ctx.on_unload(callback)`.
 name = "kubescope-hello"
 version = "0.1.0"
 requires-python = ">=3.15,<3.16"
-dependencies = ["kubescope-sdk>=1.0.0"]  # it brings PySide6, which draws your widgets
+dependencies = ["kubescope-sdk>=1.12.0,<2.0.0"]  # no Qt of your own: the app draws, through ctx.ui.components
 
 [tool.uv.sources]
 kubescope-sdk = { git = "https://github.com/dcotecnologia/kubescope-sdk", branch = "main" }
@@ -104,8 +118,8 @@ namespaces = true
 ```
 
 The dependency on the SDK is for your editor and tests: when the app runs the extension it gives it the real
-services. Do not import anything of `kubescope` but `kubescope.sdk` and your own package; a test like the
-one in [testing.md](testing.md) keeps it so.
+services. Do not import anything of `kubescope` but `kubescope.sdk` and your own package, and nothing of `PySide6`: draw
+with `ctx.ui.components` ([the wiki](wiki/README.md)). A test like the one in [testing.md](testing.md) keeps it so.
 
 ## 5. Run it with hot reload
 

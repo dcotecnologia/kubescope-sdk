@@ -4,11 +4,18 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-11-25
+
+### Added
+
+- More of `Ui.components`, so a page is built with no widget made by hand: `label`, `checkbox`, `icon_button`, `command_box`, `table_item`, `menu`, `scroll`, `card`, the layouts `row`, `column` and `form`, `page` (the filters, actions, notice, body and footer of the pages of the app), `image_label`, `grid_scroll`, `error_banner`, `widget` (the widget of a page or of a section of the Settings, with the hooks the app calls, so an extension subclasses no Qt class), `copy_text`, `open_file`, `dialog` and `confirm` by @danilogco
+- `translate(context, text)` and `set_translator`, to translate the texts of an extension with no Qt in it, and, in `Ui.components`, what an extension needed of Qt itself: `timer`, `after`, `icon`, `open_url`, `on_context_menu`, `show_menu`, `image`, `set_image`, `on_resize`, `grid_cell`, `bottom_of`, `is_alive`, `set_item_checked`, `item_checked`, `set_time`, `time_text`, `spacer`, `check_matrix`, `side_panel`, `notice_card`, `counter_button`, `palette`, `background` (work off the UI thread, with the pieces of a generator as they come), `chat_view` and `chat_dock` (a chat with an assistant); `header_sorter` now tells `descending` as a boolean; the rule is that an extension imports nothing from `PySide6`; a complete wiki of the components (`docs/wiki/`), with an example for each, a recipes page, the testing kit and a reference of all of them, and the first guide without a Qt class by @danilogco
+
 ## [1.11.0] - 2026-11-25
 
 ### Added
 
-- `Ui.components`, the pre-formatted elements of the app for the page of an extension, so it does not keep a copy of them: `data_table` (the table of the lists, with its check box in the header when asked), `header_sorter` (a click on a header sorts), `badge_delegate`, `set_badge` and `set_badge_colors` (the badges), `button`, `switch_button`, `search_box`, `filter_select`, `text_field`, `number_field` and `muted_label` (the buttons, the search box, the selects, the fields and the notes) by @danilogco
+- `Ui.components`, the pre-formatted elements of the app for the page of an extension, so it does not keep a copy of them: `data_table` (the table of the lists, with its check box in the header when asked), `header_sorter` (a click on a header sorts), `badge_delegate`, `set_badge` and `set_badge_colors` (the badges), `button`, `switch_button`, `search_box`, `filter_select`, `text_field`, `number_field`, `time_field`, `text_area` and `muted_label` (the buttons, the search box, the selects, the fields and the notes) by @danilogco
 
 ## [1.10.0] - 2026-11-24
 
@@ -92,7 +99,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.11.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.12.0...HEAD
+[1.12.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.8.0...v1.9.0

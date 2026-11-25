@@ -45,6 +45,7 @@ from kubescope.sdk.events import (
     WRITE_MODE_CHANGED,
     Events,
 )
+from kubescope.sdk.i18n import set_translator, translate
 
 __all__ = [
     "API_VERSION",
@@ -58,6 +59,8 @@ __all__ = [
     "PERMISSIONS",
     "SETTINGS_SHOWN",
     "SHUTDOWN",
+    "set_translator",
+    "translate",
     "THEME_CHANGED",
     "Cli",
     "CliCommand",

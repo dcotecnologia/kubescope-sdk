@@ -56,7 +56,7 @@ projects are written this way and are good places to read real code:
 | Start a port forward to a database through Systems Manager, in the write mode | `ctx.forwards` | `forward` |
 | Run programs of the computer | `kubescope.sdk.programs`, `kubescope.sdk.flatpak` | `subprocess` |
 | Show messages, run work off the UI thread, show details and logs, add shortcuts, use Qt | `ctx.ui` | `ui.window` |
-| Build the page with the tables, headers and badges of the app | `ctx.ui.components` | `ui.window` |
+| Build every page with the components of the app (tables, buttons, fields, dialogs, panels, a chat) | `ctx.ui.components` | `ui.window` |
 | Add a page with its entry in the side menu | `ctx.add_page` | `ui.page` |
 | Add a section to the Settings | `ctx.add_settings_section` | `ui.settings` |
 | Offer color themes | `ctx.add_theme` | `ui.theme` |
@@ -76,7 +76,7 @@ before installing.
 | [Getting started](docs/getting-started.md) | Write, run and install your first extension |
 | [The manifest](docs/manifest.md) | Know every field of `kubescope-extension.toml` and how it is checked |
 | [The context](docs/api.md) | Look up every service and call of `ctx`, with the models and the helpers |
-| [Components](docs/components.md) | Build a page with the tables, sorting and badges of the app |
+| [Components wiki](docs/wiki/README.md) | Build every page with the components of the app: tables, buttons, dialogs, panels, chat, services and testing, with examples |
 | [Contributions](docs/contributions.md) | Add pages, settings sections, shortcuts, commands and panels |
 | [Permissions and security](docs/permissions.md) | Ask for the least, and know what is and is not enforced |
 | [Testing](docs/testing.md) | Test an extension without the app, and inside it |
@@ -100,6 +100,11 @@ itself imports neither Qt nor the app, and a test enforces it.
 
 - **A contract, not the app.** `Context` and the services are `Protocol`s. The extension never imports the
   app, so it can be installed, tested and type-checked without it.
+- **The look and the Qt services come from the app.** An extension imports nothing from `PySide6` (nor
+  `shiboken6`), in its code or in its tests: its widgets, tables, badges, buttons, dialogs, timers, icons,
+  translations and the rest are asked of `ctx.ui.components` and `kubescope.sdk` (see
+  [the Components wiki](docs/wiki/README.md)), so a change to the look of the app reaches every extension at once
+  and a test enforces it. What is missing is added to the SDK, not imported from Qt.
 - **Least authority.** Every power is a permission in the manifest, shown to the person before anything of
   the extension runs.
 - **Read by default, write on purpose.** Everything that changes a cluster or starts a process raises

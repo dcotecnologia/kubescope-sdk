@@ -113,7 +113,7 @@ and returns `False` when the local port is in use.
 
 | Member | What it does |
 | ------ | ------------ |
-| `components` | The tables, header sorting and badges of the app, to build a page that looks like the others: see [Components](components.md) |
+| `components` | Every element of the app, to build a page that looks like the others, with no Qt of your own: see the [Components wiki](wiki/README.md) |
 | `window`, `central` | The main window and the widget panels in the corner sit on, for parenting your widgets |
 | `show_message(icon, title, text)` | A message box; `icon` is `information`, `warning` or `critical` |
 | `run_action(function, on_success, *args, on_error=None, quiet=False)` | Calls `function(*args)` off the UI thread; the answer comes to `on_success`, a failure to `on_error(message)` or to the app's own error handling |
