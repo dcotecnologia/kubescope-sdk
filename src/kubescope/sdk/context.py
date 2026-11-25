@@ -388,9 +388,18 @@ class Ui(Protocol):
         title: str,
         message: str,
         on_click: Callable[[], None] | None = None,
+        category: str = "",
     ) -> bool:
         """Tell the person through the notifications of the operating system;
         clicking it brings the app forward and then calls `on_click`.
+
+        `category` says what kind of notice it is (`"action"` for
+        something the person asked that was done, `"pod"` for the state
+        of a Pod after it, `"task"` for an activity that finished). With
+        the notifications extension running, it keeps the notice and the
+        person chooses, by category, which are listed and which are told
+        to the system; without a category the notice of the system is
+        shown at once.
 
         False when the desktop cannot show one.
         """

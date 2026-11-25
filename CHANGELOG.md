@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-11-24
+
+### Added
+
+- `Ui.show_system_notification` takes a `category` (`action`, `pod`, `task`), so the notifications extension can keep the notice and let the person choose which kinds are listed and told, and the `notification` event carries it by @danilogco
+
 ## [1.9.0] - 2026-11-24
 
 ### Added
@@ -80,7 +86,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.6.0...v1.7.0

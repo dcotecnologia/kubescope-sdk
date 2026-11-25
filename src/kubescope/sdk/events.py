@@ -17,7 +17,10 @@ SETTINGS_SHOWN = "settings_shown"
 # The app has something to tell the person: level: str ("error", "warning" or
 # "info"), title: str, message: str, key: str (the same key is the same
 # notice), repeat: bool (whether the same key happening again counts) and
-# context: str (the context in use when it happened, "" when it is about none)
+# context: str (the context in use when it happened, "" when it is about none),
+# and, for a notice of something done: category: str ("action", "pod" or
+# "task"), click: a function to call when it is clicked, or None, and system:
+# bool (whether the system should be told, which the extension decides)
 NOTIFICATION = "notification"
 
 EVENTS = (

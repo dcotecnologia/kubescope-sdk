@@ -150,3 +150,11 @@ def test_a_page_given_at_run_time_is_plain_data_that_names_no_key() -> None:
     page = sdk.PageContribution("dco.a", "S", "G", "T", lambda: None)
     assert page.key == ""
     assert "set_pages" in _names(sdk.Context)
+
+
+def test_a_system_notification_may_name_its_category() -> None:
+    import inspect
+
+    parameters = inspect.signature(sdk.Ui.show_system_notification).parameters
+
+    assert parameters["category"].default == ""
