@@ -39,6 +39,9 @@ Keep a fake `ui` whose `run_action` runs the function at once and calls `on_succ
 page can be tested without threads. [kubescope-aws](https://github.com/dcotecnologia/kubescope-aws) has a
 complete set in `tests/conftest.py`.
 
+If the page uses `ctx.ui.components`, the fake `ui` needs a `components` too: see
+[Components](components.md#testing-a-page-that-uses-them).
+
 For widgets, set `QT_QPA_PLATFORM=offscreen` and replace `QDialog.exec`, `QMenu.exec` and `QMessageBox.exec`
 so that a test that opens a modal dialog fails instead of hanging.
 

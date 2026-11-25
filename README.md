@@ -56,6 +56,7 @@ projects are written this way and are good places to read real code:
 | Start a port forward to a database through Systems Manager, in the write mode | `ctx.forwards` | `forward` |
 | Run programs of the computer | `kubescope.sdk.programs`, `kubescope.sdk.flatpak` | `subprocess` |
 | Show messages, run work off the UI thread, show details and logs, add shortcuts, use Qt | `ctx.ui` | `ui.window` |
+| Build the page with the tables, headers and badges of the app | `ctx.ui.components` | `ui.window` |
 | Add a page with its entry in the side menu | `ctx.add_page` | `ui.page` |
 | Add a section to the Settings | `ctx.add_settings_section` | `ui.settings` |
 | Offer color themes | `ctx.add_theme` | `ui.theme` |
@@ -75,6 +76,7 @@ before installing.
 | [Getting started](docs/getting-started.md) | Write, run and install your first extension |
 | [The manifest](docs/manifest.md) | Know every field of `kubescope-extension.toml` and how it is checked |
 | [The context](docs/api.md) | Look up every service and call of `ctx`, with the models and the helpers |
+| [Components](docs/components.md) | Build a page with the tables, sorting and badges of the app |
 | [Contributions](docs/contributions.md) | Add pages, settings sections, shortcuts, commands and panels |
 | [Permissions and security](docs/permissions.md) | Ask for the least, and know what is and is not enforced |
 | [Testing](docs/testing.md) | Test an extension without the app, and inside it |

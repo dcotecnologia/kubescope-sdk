@@ -331,12 +331,116 @@ class Forwards(Protocol):
         ...
 
 
+class Components(Protocol):
+    """The pre-formatted elements of the app, to build a page with the look of
+    the others instead of keeping a copy of them.
+
+    Every widget they hand back is a Qt one (typed `Any`: the SDK does
+    not import Qt).
+    """
+
+    def data_table(
+        self, headers: Sequence[str], widths: Sequence[int], checkable: bool = False
+    ) -> Any:
+        """A table as the lists of the app are: one column for each of
+        `headers`, the first `len(widths)` with that width in pixels and the
+        last stretched, rows of the same height with a divider, one row
+        selected at a time, headers centered and clickable, cells that cannot
+        be edited, a text too long cut with an ellipsis, and every cell able to
+        be a badge (`set_badge`).
+
+        With `checkable`, the header has a check box in the section of
+        the first column (`CheckHeader`: `set_column`, `set_check_state`
+        and the `toggled` signal).
+        """
+        ...
+
+    def header_sorter(
+        self, table: Any, apply: Callable[[int, Any], None] | None = None
+    ) -> Any:
+        """Sort `table` when a header is clicked, ascending first and reversed
+        on the next click, by what the cells mean (ages, numbers, versions).
+
+        Without `apply` the sorter moves the rows of the table itself
+        (and `reapply()` does it again after the table is filled); with
+        it, `apply(column, order)` is called and the owner draws its
+        list in that order.
+        """
+        ...
+
+    def badge_delegate(self, parent: Any) -> Any:
+        """The delegate that draws the cells marked by `set_badge` as the
+        badges of the app, a rounded pill as wide as its column; `parent` is
+        the table.
+
+        `data_table` has it for every column already.
+        """
+        ...
+
+    def set_badge(self, item: Any, status: str) -> None:
+        """Mark a cell (a `QTableWidgetItem`) as a badge in the colors of
+        `status`, whatever its case: green when fine (Active, Normal), amber
+        while it changes (Updating, Pending), red when it failed, grey for
+        anything else."""
+        ...
+
+    def set_badge_colors(self, item: Any, text: str, fill: str) -> None:
+        """Mark a cell as a badge in those colors, for a state the words of
+        `set_badge` do not name."""
+        ...
+
+    def button(
+        self,
+        text: str,
+        variant: str = "secondary",
+        icon: Any = None,
+        on_click: Callable[[], None] | None = None,
+    ) -> Any:
+        """A button (`QPushButton`) as the app has them.
+
+        `variant` is `primary` (the main action), `secondary` (any
+        other) or `link` (a text the person clicks); `icon` is a
+        `QIcon`; `on_click` is called when it is clicked.
+        """
+        ...
+
+    def switch_button(self, text: str, tip: str) -> Any:
+        """A square button that stays pressed, as the Aa (match case) and .*
+        (regular expression) of a search box."""
+        ...
+
+    def search_box(self, placeholder: str = "") -> Any:
+        """The search box of the lists: a `QLineEdit` with the size and the
+        clear button of the app."""
+        ...
+
+    def filter_select(self, items: Sequence[tuple[str, Any]] = ()) -> Any:
+        """A select (`QComboBox`) as the filters of the lists, with an item for
+        each `(text, data)`."""
+        ...
+
+    def text_field(self, placeholder: str = "") -> Any:
+        """A line of text (`QLineEdit`) as the fields of the forms of the
+        app."""
+        ...
+
+    def number_field(self, minimum: int, maximum: int, value: int = 0) -> Any:
+        """A field for a whole number (`QSpinBox`) between `minimum` and
+        `maximum`, as the forms of the app have them."""
+        ...
+
+    def muted_label(self, text: str = "") -> Any:
+        """A note in the soft color of the app (`QLabel`)."""
+        ...
+
+
 class Ui(Protocol):
     """The window, for an extension that asked for `ui.window`; it is None when
     the app runs without one (a command of the terminal)."""
 
     window: Any  # the main window: the parent of the boxes the extension shows
     central: Any  # the widget that panels in the corner sit on
+    components: Components  # the pre-formatted elements of the app
 
     def show_message(self, icon: str, title: str, text: str) -> None:
         """Tell the person something; `icon` is information, warning or

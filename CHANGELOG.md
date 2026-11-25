@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-11-25
+
+### Added
+
+- `Ui.components`, the pre-formatted elements of the app for the page of an extension, so it does not keep a copy of them: `data_table` (the table of the lists, with its check box in the header when asked), `header_sorter` (a click on a header sorts), `badge_delegate`, `set_badge` and `set_badge_colors` (the badges), `button`, `switch_button`, `search_box`, `filter_select`, `text_field`, `number_field` and `muted_label` (the buttons, the search box, the selects, the fields and the notes) by @danilogco
+
 ## [1.10.0] - 2026-11-24
 
 ### Added
@@ -86,7 +92,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.10.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.11.0...HEAD
+[1.11.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.7.0...v1.8.0
