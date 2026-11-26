@@ -107,7 +107,7 @@ process), call `ctx.on_unload(callback)`.
 name = "kubescope-hello"
 version = "0.1.0"
 requires-python = ">=3.15,<3.16"
-dependencies = ["kubescope-sdk>=1.12.0,<2.0.0"]  # no Qt of your own: the app draws, through ctx.ui.components
+dependencies = ["kubescope-sdk>=1.13.0,<2.0.0"]  # no Qt of your own: the app draws, through ctx.ui.components
 
 [tool.uv.sources]
 kubescope-sdk = { git = "https://github.com/dcotecnologia/kubescope-sdk", branch = "main" }

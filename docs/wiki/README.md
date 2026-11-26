@@ -9,8 +9,8 @@ component of `ctx.ui.components` and the helper `translate`, with an example for
 > to the SDK and to the app, never imported from Qt. Every extension has a test that fails on such an
 > import, and a change to the look of the app reaches every extension at once.
 
-Needs SDK 1.12 and an app that has it (KubeScope 2.9). Ask for `kubescope-sdk>=1.12.0,<2.0.0` in your
-`pyproject.toml`, and `min_app = "2.9.0"` in your manifest.
+Needs SDK 1.13 and an app that has it (KubeScope 2.10). Ask for `kubescope-sdk>=1.13.0,<2.0.0` in your
+`pyproject.toml`, and `min_app = "2.10.0"` in your manifest (and, if you want to keep it off apps you have not tried, `max_app = "3.0.0"`).
 
 ## The pages
 

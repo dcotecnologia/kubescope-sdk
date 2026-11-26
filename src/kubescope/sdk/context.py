@@ -11,6 +11,7 @@ does; they are not a sandbox, because an extension is Python that runs
 in the app, so only install one from a source you trust.
 """
 
+import datetime
 from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any, NamedTuple, Protocol
@@ -161,6 +162,13 @@ class ClusterAccess(Protocol):
     def helm_chart_name(self, context: str, namespace: str, release: str) -> str:
         """The chart a Helm release installed, as the add-ons list read it;
         `release` itself when it is not known."""
+        ...
+
+    def helm_chart_repository(self, context: str, namespace: str, release: str) -> str:
+        """The https address of the repository a Helm release's chart came
+        from, when the release says it with the label `kubescope.dev/chart-
+        repo` (`host_path`, the `/` of the address written `_`); else an empty
+        text."""
         ...
 
     def eks_target(self, context: str) -> list[str]:
@@ -871,6 +879,22 @@ class Ui(Protocol):
     def pick_item(self, title: str, label: str, items: list[str]) -> tuple[str, bool]:
         """Ask the person to pick one of `items`; the one picked and whether
         they accepted."""
+        ...
+
+    def pick_row(
+        self,
+        title: str,
+        label: str,
+        headers: list[str],
+        rows: list[list[str]],
+        moments: list[datetime.datetime] | None = None,
+    ) -> tuple[int, bool]:
+        """Ask the person to pick one of `rows` in a table that narrows as they
+        type; the index of the one picked and whether they accepted.
+
+        With `moments`, one for each row, the table also has a range of
+        dates to filter by.
+        """
         ...
 
     def show_json(self, title: str, document: dict[str, Any]) -> None:

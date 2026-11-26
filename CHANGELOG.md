@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+## [1.13.0] - 2026-11-25
+
+### Added
+
+- `Cluster.helm_chart_repository(context, namespace, release)`, the https address of the repository a Helm release's chart came from, when the release says it with the label `kubescope.dev/chart-repo` by @danilogco
+- `Ui.pick_row(title, label, headers, rows, moments)`, to pick one row of a table that narrows as the person types and, with `moments`, by a range of dates by @danilogco
+
 ## [1.12.0] - 2026-11-25
 
 ### Added
@@ -99,7 +106,8 @@ All notable changes to this project will be documented in this file. The format 
 - The events the app tells the extensions about, and the commands of the window an extension can call
 - The models of the cluster and helpers: `redact`, `paths`, `timezone`, `ansi`, `programs` and `flatpak`
 
-[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.12.0...HEAD
+[Unreleased]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.13.0...HEAD
+[1.13.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/dcotecnologia/kubescope-sdk/compare/v1.9.0...v1.10.0
